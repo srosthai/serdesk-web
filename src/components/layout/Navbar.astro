@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import Logo from "./Logo.astro";
+import ThemeToggle from "./ThemeToggle.astro";
 import { primaryNav } from "../../data/site";
 
 const pathname = Astro.url.pathname;
@@ -27,6 +28,7 @@ const isActive = (href: string) =>
     </nav>
 
     <div class="hidden items-center gap-3 md:flex">
+      <ThemeToggle />
       <a
         href="https://github.com/srosthai/ServerDesk"
         class="nav-link inline-flex items-center gap-1.5"
@@ -39,46 +41,49 @@ const isActive = (href: string) =>
       <a href="/download" class="button button-primary">Download</a>
     </div>
 
-    <details class="relative md:hidden" data-mobile-nav>
-      <summary
-        class="grid size-10 cursor-pointer list-none place-items-center rounded-[10px] border border-rule text-ink transition-colors hover:bg-mist [&::-webkit-details-marker]:hidden"
-        aria-label="Open menu"
-      >
-        <span class="nav-toggle-lines" aria-hidden="true">
-          <span></span>
-          <span></span>
-        </span>
-      </summary>
+    <div class="flex items-center gap-2 md:hidden">
+      <ThemeToggle />
+      <details class="relative" data-mobile-nav>
+        <summary
+          class="grid size-10 cursor-pointer list-none place-items-center rounded-[10px] border border-rule text-ink transition-colors hover:bg-mist [&::-webkit-details-marker]:hidden"
+          aria-label="Open menu"
+        >
+          <span class="nav-toggle-lines" aria-hidden="true">
+            <span></span>
+            <span></span>
+          </span>
+        </summary>
 
-      <div
-        class="nav-panel absolute right-0 top-12 w-[min(86vw,20rem)] border border-rule bg-paper p-3 shadow-[0_24px_60px_rgba(17,17,17,0.08)]"
-      >
-        <nav aria-label="Mobile" class="grid">
-          {
-            primaryNav.map((item) => (
-              <a
-                href={item.href}
-                class="flex items-center justify-between border-b border-rule px-2 py-3 text-[0.9375rem] font-medium text-ink no-underline last:border-b-0"
-                aria-current={isActive(item.href) ? "page" : undefined}
-              >
-                {item.label}
-                <Icon name="ph:arrow-right" class="size-4 text-graphite" aria-hidden="true" />
-              </a>
-            ))
-          }
-          <a
-            href="https://github.com/srosthai/ServerDesk"
-            class="flex items-center justify-between border-b border-rule px-2 py-3 text-[0.9375rem] font-medium text-ink no-underline"
-            target="_blank"
-            rel="noreferrer"
-          >
-            GitHub
-            <Icon name="ph:arrow-up-right" class="size-4 text-graphite" aria-hidden="true" />
-          </a>
-        </nav>
-        <a href="/download" class="button button-primary mt-3 w-full">Download</a>
-      </div>
-    </details>
+        <div
+          class="nav-panel absolute right-0 top-12 w-[min(86vw,20rem)] border border-rule bg-paper p-3 shadow-[0_24px_60px_rgba(17,17,17,0.08)] dark:shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+        >
+          <nav aria-label="Mobile" class="grid">
+            {
+              primaryNav.map((item) => (
+                <a
+                  href={item.href}
+                  class="flex items-center justify-between border-b border-rule px-2 py-3 text-[0.9375rem] font-medium text-ink no-underline last:border-b-0"
+                  aria-current={isActive(item.href) ? "page" : undefined}
+                >
+                  {item.label}
+                  <Icon name="ph:arrow-right" class="size-4 text-graphite" aria-hidden="true" />
+                </a>
+              ))
+            }
+            <a
+              href="https://github.com/srosthai/ServerDesk"
+              class="flex items-center justify-between border-b border-rule px-2 py-3 text-[0.9375rem] font-medium text-ink no-underline"
+              target="_blank"
+              rel="noreferrer"
+            >
+              GitHub
+              <Icon name="ph:arrow-up-right" class="size-4 text-graphite" aria-hidden="true" />
+            </a>
+          </nav>
+          <a href="/download" class="button button-primary mt-3 w-full">Download</a>
+        </div>
+      </details>
+    </div>
   </div>
 </header>
 

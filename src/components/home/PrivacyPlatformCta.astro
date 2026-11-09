@@ -55,26 +55,26 @@ const platforms = [
 ];
 ---
 
-<section class="bg-ink text-paper">
+<section class="bg-band text-band-foreground">
   <Container class="section-space">
     <div class="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
       <div>
-        <h2 class="section-title text-paper">Your infrastructure stays yours.</h2>
-        <p class="mt-5 max-w-[42ch] text-[1.0625rem] leading-7 text-paper/65">
+        <h2 class="section-title text-band-foreground">Your infrastructure stays yours.</h2>
+        <p class="mt-5 max-w-[42ch] text-[1.0625rem] leading-7 text-band-foreground/65">
           ServerDesk is a desktop application, not a hosted dashboard. It runs on your computer
           and connects directly to the servers you already control.
         </p>
-        <p class="mt-8 max-w-[40ch] font-mono text-[0.6875rem] leading-5 text-paper/45">
+        <p class="mt-8 max-w-[40ch] font-mono text-[0.6875rem] leading-5 text-band-foreground/65">
           Local workspace. Direct SSH. No hosted control plane.
         </p>
       </div>
 
-      <dl class="border-t border-paper/15" data-reveal>
+      <dl class="border-t border-band-foreground/15" data-reveal>
         {
           privacyFacts.map((fact) => (
-            <div class="grid gap-2 border-b border-paper/15 py-4 sm:grid-cols-[0.72fr_1.28fr] sm:gap-8 sm:py-5">
-              <dt class="font-mono text-[0.6875rem] leading-5 text-paper/50">{fact.label}</dt>
-              <dd class="max-w-[52ch] text-[0.9375rem] leading-6 text-paper/80">
+            <div class="grid gap-2 border-b border-band-foreground/15 py-4 sm:grid-cols-[0.72fr_1.28fr] sm:gap-8 sm:py-5">
+              <dt class="font-mono text-[0.6875rem] leading-5 text-band-foreground/65">{fact.label}</dt>
+              <dd class="max-w-[52ch] text-[0.9375rem] leading-6 text-band-foreground/80">
                 {fact.description}
               </dd>
             </div>
@@ -126,21 +126,21 @@ const platforms = [
   </Container>
 </section>
 
-<section class="bg-ink text-paper">
+<section class="bg-band text-band-foreground">
   <Container class="py-20 md:py-28">
     <div class="max-w-[760px]">
-      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-paper">
+      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-band-foreground">
         Take control of your servers.
       </h2>
-      <p class="mt-5 max-w-[50ch] text-[1.0625rem] leading-7 text-paper/65">
+      <p class="mt-5 max-w-[50ch] text-[1.0625rem] leading-7 text-band-foreground/65">
         One desktop application. All your servers. No cloud account required.
       </p>
       <div class="mt-8">
-        <a href="/download" class="button bg-paper text-ink hover:bg-white">
+        <a href="/download" class="button bg-band-foreground text-band hover:bg-white">
           Download ServerDesk
         </a>
       </div>
-      <p class="mono-note mt-6 text-paper/45">Free to use. Windows, macOS, and Linux.</p>
+      <p class="mono-note mt-6 text-band-foreground/65">Free to use. Windows, macOS, and Linux.</p>
     </div>
   </Container>
 </section>

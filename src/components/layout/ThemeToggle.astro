@@ -1,0 +1,25 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props {
+  class?: string;
+}
+
+const { class: className = "" } = Astro.props;
+---
+
+<button
+  type="button"
+  data-theme-toggle
+  aria-label="Switch to dark theme"
+  aria-pressed="false"
+  class:list={[
+    "inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-rule text-ink transition-colors hover:bg-mist",
+    className,
+  ]}
+>
+  <span class="relative size-4" aria-hidden="true">
+    <Icon name="ph:sun" class="theme-icon theme-icon-sun absolute inset-0 size-4" />
+    <Icon name="ph:moon" class="theme-icon theme-icon-moon absolute inset-0 size-4" />
+  </span>
+</button>
