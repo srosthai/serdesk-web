@@ -65,4 +65,6 @@ If the secrets are missing, the deployment workflow builds the site and skips th
 
 The implementation is tracked in the repository issues and milestones. The source specification is `ServerPilot_Website_MVP_Astro_Specification.pdf`.
 
+The final review is recorded in [`MVP_ACCEPTANCE.md`](MVP_ACCEPTANCE.md), including accepted exceptions for the unreleased installers, source license, and Cloudflare credentials.
+
 The production domain is `https://serverdesk.srosthai.me`. Override it with `SITE_URL` at build time when needed.
