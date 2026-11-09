@@ -1,0 +1,43 @@
+---
+import Container from "../layout/Container.astro";
+import ProductPreview from "../preview/ProductPreview";
+import { productScreenshots } from "../../data/screenshots";
+
+const shots = productScreenshots.slice(0, 5);
+---
+
+<section class="section-space border-b border-rule bg-mist">
+  <Container>
+    <div class="max-w-[720px]">
+      <h2 class="section-title">The whole server, in one window.</h2>
+      <p class="lede mt-5">
+        Move between inventory, terminals, services, and files without losing the context of which
+        server you are on. Every view belongs to the same local workspace.
+      </p>
+    </div>
+
+    <div class="mt-10 md:mt-14">
+      <ProductPreview client:visible screenshots={shots} />
+    </div>
+
+    <noscript>
+      <div class="mt-10 grid gap-8">
+        {
+          shots.map((shot) => (
+            <figure>
+              <img
+                src={shot.src}
+                alt={shot.alt}
+                width={shot.width}
+                height={shot.height}
+                loading="lazy"
+                class="w-full rounded-[14px] border border-rule bg-paper p-1.5"
+              />
+              <figcaption class="mt-3 font-mono text-[0.6875rem] text-graphite">{shot.view}</figcaption>
+            </figure>
+          ))
+        }
+      </div>
+    </noscript>
+  </Container>
+</section>
