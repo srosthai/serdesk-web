@@ -2,20 +2,189 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
+import EndCta from "../components/marketing/EndCta.astro";
+import { site } from "../data/site";
+
+type Fact = {
+  label: string;
+  value: string;
+  href?: string;
+  external?: boolean;
+};
+
+const facts: Fact[] = [
+  { label: "Platform", value: "Windows, macOS, Linux" },
+  { label: "Distribution", value: "Desktop application" },
+  { label: "Repository", value: site.github, href: site.github, external: true },
+  { label: "License", value: "No license file published", href: "#license" },
+  { label: "Contact", value: "GitHub Issues", href: site.contact, external: true },
+];
+
+const principles = [
+  {
+    title: "Local by default",
+    description:
+      "The app is the control plane. Your server metadata stays on your computer, and remote work goes directly over SSH.",
+  },
+  {
+    title: "Verify before acting",
+    description:
+      "Host keys are checked before authentication. Service actions and file transfers require explicit confirmation and report what was verified.",
+  },
+  {
+    title: "Keep output bounded",
+    description:
+      "Logs, command output, and operation history have limits. A failed or partial result is shown as a failed or partial result.",
+  },
+];
 ---
 
 <BaseLayout
   title="About"
-  description="ServerDesk is a local-first desktop application for managing VPS servers over SSH."
+  description="ServerDesk is a local-first desktop application for managing Linux VPS servers over SSH, with no hosted control plane."
 >
   <Container>
     <PageHeader
       title="A quieter way to run servers."
-      description="ServerDesk is built for people who manage their own infrastructure and want one clear place to do it."
+      description="ServerDesk is a local-first desktop application for the Linux VPS servers you already manage. One workspace for the routine work, without a hosted control plane."
     />
-    <div class="py-16 md:py-24">
-      <p class="lede">The project story, license, and privacy details are being written.</p>
-      <a href="/" class="button button-secondary mt-8">Back to home</a>
-    </div>
   </Container>
+
+  <section class="section-space border-b border-rule">
+    <Container>
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-20">
+        <div>
+          <h2 class="section-title">Built for the work between deploys.</h2>
+          <div class="mt-6 max-w-[62ch] space-y-5 text-[1rem] leading-7 text-graphite">
+            <p>
+              Most server tools ask you to keep a browser tab open, copy a command into a
+              terminal, and remember which host you are on. ServerDesk keeps the connection, the
+              context, and the result in one place.
+            </p>
+            <p>
+              The application runs on your computer. It connects directly over SSH, stores
+              credentials in the operating system credential store, and keeps operation history
+              locally. There is no ServerDesk account to create and no agent to install on the
+              server.
+            </p>
+            <p>
+              The website is the product showcase and download destination. The desktop app is
+              where the work happens.
+            </p>
+          </div>
+
+          <div class="mt-10 flex flex-wrap gap-3">
+            <a href={site.github} target="_blank" rel="noreferrer" class="button button-secondary">
+              View the repository
+            </a>
+            <a href="/docs" class="button button-secondary">Read the documentation</a>
+          </div>
+        </div>
+
+        <dl class="border-t border-rule">
+          {
+            facts.map((fact) => (
+              <div class="grid gap-2 border-b border-rule py-4 sm:grid-cols-[0.62fr_1.38fr] sm:gap-6">
+                <dt class="font-mono text-[0.6875rem] leading-5 text-graphite">{fact.label}</dt>
+                <dd class="text-[0.9375rem] leading-6 text-ink">
+                  {fact.href ? (
+                    <a
+                      href={fact.href}
+                      target={"external" in fact && fact.external ? "_blank" : undefined}
+                      rel={"external" in fact && fact.external ? "noreferrer" : undefined}
+                      class="text-link"
+                    >
+                      {fact.value}
+                    </a>
+                  ) : (
+                    fact.value
+                  )}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </Container>
+  </section>
+
+  <section class="section-space border-b border-rule bg-mist">
+    <Container>
+      <div class="max-w-[700px]">
+        <h2 class="section-title">Three rules the product follows.</h2>
+        <p class="lede mt-5">
+          These are the constraints behind the interface, not a marketing promise.
+        </p>
+      </div>
+
+      <div class="mt-12 grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-rule">
+        {
+          principles.map((principle, index) => (
+            <div class:list={["border-t border-rule pt-6 md:border-t-0 md:pt-0", index > 0 ? "md:pl-8" : ""]}>
+              <h3 class="text-[1.25rem] font-medium tracking-[-0.03em]">{principle.title}</h3>
+              <p class="mt-3 max-w-[38ch] text-[0.9375rem] leading-7 text-graphite">
+                {principle.description}
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <section class="section-space border-b border-rule">
+    <Container>
+      <div class="grid gap-12 lg:grid-cols-2 lg:gap-20">
+        <div id="license" class="scroll-mt-28">
+          <h2 class="text-[1.75rem] font-semibold tracking-[-0.04em] md:text-[2rem]">License</h2>
+          <div class="mt-4 space-y-4 text-[0.9375rem] leading-7 text-graphite">
+            <p>The ServerDesk desktop application is free to use.</p>
+            <p>
+              The source repository does not currently include a license file. Public
+              availability of the source does not grant permission to redistribute it or publish
+              derivative works. Contact the maintainer for licensing questions.
+            </p>
+            <p>
+              <a href={site.contact} target="_blank" rel="noreferrer" class="text-link">
+                Ask about licensing on GitHub
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <div id="privacy" class="scroll-mt-28">
+          <h2 class="text-[1.75rem] font-semibold tracking-[-0.04em] md:text-[2rem]">Privacy</h2>
+          <p class="mt-3 font-mono text-[0.6875rem] leading-5 text-graphite">Last updated November 2026</p>
+          <div class="mt-4 space-y-4 text-[0.9375rem] leading-7 text-graphite">
+            <p>
+              This website is a static site. It does not create accounts, set cookies, run
+              advertising, or include third-party analytics. The hosting provider may process
+              standard request information such as IP address, user agent, and requested URL to
+              deliver the site and protect it from abuse.
+            </p>
+            <p>
+              The ServerDesk desktop application runs on your computer and connects directly to
+              the servers you configure over SSH. Server data is exchanged with those servers, not
+              sent to a ServerDesk-hosted backend. Credentials are stored in the operating system
+              credential store, and local metadata and operation history stay on your computer.
+            </p>
+            <p>
+              Questions about privacy can be raised in the
+              <a href={site.contact} target="_blank" rel="noreferrer" class="text-link"> GitHub issue tracker</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </Container>
+  </section>
+
+  <EndCta
+    title="Start with one server."
+    description="Install ServerDesk, connect over SSH, and keep the next piece of server work in one window."
+    primaryLabel="Download ServerDesk"
+    primaryHref="/download"
+    secondaryLabel="Read the documentation"
+    secondaryHref="/docs"
+    note="Free to use. Windows, macOS, and Linux."
+  />
 </BaseLayout>
