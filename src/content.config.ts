@@ -17,7 +17,7 @@ const changelog = defineCollection({
   schema: z.object({
     version: z.string(),
     releaseDate: z.coerce.date(),
-    status: z.enum(["development", "release"]).default("release"),
+    status: z.enum(["development", "prerelease", "release"]).default("release"),
     summary: z.string(),
     added: z.array(z.string()).default([]),
     fixed: z.array(z.string()).default([]),
