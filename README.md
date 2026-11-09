@@ -1,6 +1,6 @@
-# ServerPilot Website
+# ServerDesk Website
 
-Marketing and download website for ServerPilot, a locally installed desktop application for managing VPS servers over SSH.
+Marketing and download website for ServerDesk, a locally installed desktop application for managing VPS servers over SSH.
 
 > Your servers. One desktop. Full control.
 
@@ -40,4 +40,4 @@ npm run preview
 
 The implementation is tracked in the repository issues and milestones. The source specification is `ServerPilot_Website_MVP_Astro_Specification.pdf`.
 
-The `site` value in `astro.config.mjs` is a placeholder until the production domain is confirmed. Override it with `SITE_URL` at build time.
+The production domain is `https://serverdesk.srosthai.me`. Override it with `SITE_URL` at build time when needed.

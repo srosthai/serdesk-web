@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://serverdesk.srosthai.me/sitemap-index.xml

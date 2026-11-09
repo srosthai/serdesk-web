@@ -1,5 +1,5 @@
 export const site = {
-  name: "ServerPilot",
+  name: "ServerDesk",
   tagline: "Your servers. One desktop. Full control.",
   description:
     "Manage your VPS servers from one local desktop application. Connect over SSH, monitor resources, manage services, browse files, and run commands without switching between terminals and dashboards.",
