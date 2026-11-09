@@ -1,21 +1,139 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
+import EndCta from "../components/marketing/EndCta.astro";
+import { site } from "../data/site";
+
+const entries = (await getCollection("changelog")).sort(
+  (left, right) => right.data.releaseDate.valueOf() - left.data.releaseDate.valueOf(),
+);
+
+const dateFormatter = new Intl.DateTimeFormat("en", {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
+
+const lists = [
+  { key: "added", label: "Added" },
+  { key: "fixed", label: "Fixed" },
+  { key: "knownIssues", label: "Known issues" },
+] as const;
 ---
 
 <BaseLayout
   title="Changelog"
-  description="Release notes, fixes, and known issues for ServerDesk."
+  description="ServerDesk release notes, development previews, fixes, and known issues."
 >
   <Container>
     <PageHeader
       title="Changelog."
-      description="What changed, what was fixed, and what is still being worked on."
-    />
-    <div class="py-16 md:py-24">
-      <p class="lede">Release notes will appear here when a public build is available.</p>
-      <a href="/" class="button button-secondary mt-8">Back to home</a>
-    </div>
+      description="What changed, what was fixed, and what is still being worked on. Only verified entries are published here."
+    >
+      <div
+        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
+      >
+        <span>{entries.length} {entries.length === 1 ? "entry" : "entries"}</span>
+        <a
+          href={site.releases}
+          target="_blank"
+          rel="noreferrer"
+          class="border-l border-rule pl-5 text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+        >
+          GitHub Releases
+        </a>
+      </div>
+    </PageHeader>
   </Container>
+
+  <section class="section-space">
+    <Container>
+      {
+        entries.length === 0 ? (
+          <div class="border-y border-rule bg-mist px-6 py-10">
+            <h2 class="text-[1.5rem] font-semibold tracking-[-0.035em]">
+              No public changelog entries yet.
+            </h2>
+            <p class="mt-3 max-w-[58ch] text-[0.9375rem] leading-7 text-graphite">
+              Release notes appear here when a build is published. The GitHub Releases page is the
+              source of truth in the meantime.
+            </p>
+            <a href={site.releases} target="_blank" rel="noreferrer" class="button button-secondary mt-6">
+              Open GitHub Releases
+            </a>
+          </div>
+        ) : (
+          entries.map((entry) => (
+            <article
+              id={`v${entry.data.version}`}
+              class="scroll-mt-28 border-b border-rule pb-12 last:border-b-0 last:pb-0 [&+article]:pt-12"
+            >
+              <div class="grid gap-8 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
+                <div>
+                  <p class="font-mono text-[0.6875rem] leading-5 text-graphite">Version</p>
+                  <h2 class="mt-2 text-[2.5rem] font-semibold tracking-[-0.05em]">
+                    v{entry.data.version}
+                  </h2>
+                  <p class="mt-2 text-[0.875rem] text-graphite">
+                    <time datetime={entry.data.releaseDate.toISOString().slice(0, 10)}>
+                      {dateFormatter.format(entry.data.releaseDate)}
+                    </time>
+                  </p>
+                  <span class="mt-5 inline-flex border border-rule px-2 py-1 font-mono text-[0.625rem] leading-4 text-graphite">
+                    {entry.data.status === "release" ? "Release" : "Development preview"}
+                  </span>
+                </div>
+
+                <div>
+                  <p class="max-w-[58ch] text-[1.0625rem] leading-7 text-ink">
+                    {entry.data.summary}
+                  </p>
+
+                  <div class="mt-8 grid gap-8 md:grid-cols-2">
+                    {lists.map((list) => {
+                      const items = entry.data[list.key];
+                      if (items.length === 0) return null;
+
+                      return (
+                        <section class:list={[list.key === "added" ? "md:col-span-2" : ""]}>
+                          <h3 class="font-mono text-[0.6875rem] leading-5 text-graphite">
+                            {list.label}
+                          </h3>
+                          <ul
+                            class:list={[
+                              "mt-3 space-y-2 text-[0.9375rem] leading-7 text-ink",
+                              list.key === "added" ? "sm:grid sm:grid-cols-2 sm:gap-x-8 sm:space-y-0" : "",
+                            ]}
+                          >
+                            {items.map((item) => (
+                              <li class="relative pl-4 before:absolute before:top-[0.8em] before:left-0 before:h-1 before:w-1 before:bg-graphite">
+                                {item}
+                              </li>
+                            ))}
+                          </ul>
+                        </section>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))
+        )
+      }
+    </Container>
+  </section>
+
+  <EndCta
+    title="See the app behind the notes."
+    description="Install ServerDesk or read the first-connection guide before the next release."
+    primaryLabel="Download ServerDesk"
+    primaryHref="/download"
+    secondaryLabel="Read the documentation"
+    secondaryHref="/docs"
+    note="Free to use. Windows, macOS, and Linux."
+  />
 </BaseLayout>
