@@ -1,0 +1,146 @@
+---
+import { Icon } from "astro-icon/components";
+import Container from "../layout/Container.astro";
+
+const privacyFacts = [
+  {
+    label: "Runs locally",
+    description:
+      "The application, your server list, and your operation history live on your computer.",
+  },
+  {
+    label: "Direct SSH",
+    description:
+      "Sessions go straight from the desktop app to the server. ServerDesk does not route them through a hosted service.",
+  },
+  {
+    label: "No mandatory account",
+    description:
+      "There is no ServerDesk cloud account, subscription, or hosted backend required to use the app.",
+  },
+  {
+    label: "No server agent",
+    description:
+      "Nothing needs to be installed on the VPS beyond the SSH service you already run.",
+  },
+  {
+    label: "Credential storage",
+    description:
+      "Passwords and private keys are kept in the operating system credential store. SSH data is still exchanged with the remote server.",
+  },
+];
+
+const platforms = [
+  {
+    id: "windows",
+    name: "Windows",
+    icon: "ph:windows-logo",
+    requirement: "Windows 10 or newer",
+    formats: "Per-user NSIS installer",
+  },
+  {
+    id: "macos",
+    name: "macOS",
+    icon: "ph:apple-logo",
+    requirement: "macOS 10.15 or newer",
+    formats: "Universal DMG for Intel and Apple silicon",
+  },
+  {
+    id: "linux",
+    name: "Linux",
+    icon: "ph:linux-logo",
+    requirement: "Ubuntu 22.04+, Debian 12+, Fedora 39+",
+    formats: "DEB, RPM, and AppImage",
+  },
+];
+---
+
+<section class="bg-ink text-paper">
+  <Container class="section-space">
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
+      <div>
+        <h2 class="section-title text-paper">Your infrastructure stays yours.</h2>
+        <p class="mt-5 max-w-[42ch] text-[1.0625rem] leading-7 text-paper/65">
+          ServerDesk is a desktop application, not a hosted dashboard. It runs on your computer
+          and connects directly to the servers you already control.
+        </p>
+        <p class="mt-8 max-w-[40ch] font-mono text-[0.6875rem] leading-5 text-paper/45">
+          Local workspace. Direct SSH. No hosted control plane.
+        </p>
+      </div>
+
+      <dl class="border-t border-paper/15">
+        {
+          privacyFacts.map((fact) => (
+            <div class="grid gap-2 border-b border-paper/15 py-4 sm:grid-cols-[0.72fr_1.28fr] sm:gap-8 sm:py-5">
+              <dt class="font-mono text-[0.6875rem] leading-5 text-paper/50">{fact.label}</dt>
+              <dd class="max-w-[52ch] text-[0.9375rem] leading-6 text-paper/80">
+                {fact.description}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </Container>
+</section>
+
+<section class="section-space border-b border-rule">
+  <Container>
+    <div class="max-w-[700px]">
+      <h2 class="section-title">One desktop app. Three platforms.</h2>
+      <p class="lede mt-5">
+        Install ServerDesk where you work. Each build follows the normal packaging model for its
+        platform.
+      </p>
+    </div>
+
+    <div class="mt-12 grid gap-8 md:mt-16 md:grid-cols-3 md:gap-0">
+      {
+        platforms.map((platform, index) => (
+          <div
+            class:list={[
+              "border-t border-rule pt-6 md:border-t-0 md:px-8 md:pt-0",
+              index === 0 ? "md:pl-0" : "md:border-l",
+            ]}
+          >
+            <Icon name={platform.icon} class="size-5 text-ink" aria-hidden="true" />
+            <h3 class="mt-5 text-[1.5rem] font-medium tracking-[-0.035em]">{platform.name}</h3>
+            <p class="mt-2 text-[0.875rem] leading-6 text-graphite">{platform.requirement}</p>
+            <p class="mt-5 text-[0.9375rem] leading-6 text-ink">{platform.formats}</p>
+            <a
+              href={`/download#${platform.id}`}
+              class="mt-5 inline-block text-[0.875rem] font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
+            >
+              Download options
+            </a>
+          </div>
+        ))
+      }
+    </div>
+
+    <p class="mt-10 max-w-[76ch] border-t border-rule pt-5 text-[0.8125rem] leading-6 text-graphite">
+      Installers and checksums appear on the Download page when a public release is available.
+      Package support depends on the release.
+    </p>
+  </Container>
+</section>
+
+<section class="bg-ink text-paper">
+  <Container class="py-20 md:py-28">
+    <div class="max-w-[760px]">
+      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-paper">
+        Take control of your servers.
+      </h2>
+      <p class="mt-5 max-w-[50ch] text-[1.0625rem] leading-7 text-paper/65">
+        One desktop application. All your servers. No cloud account required.
+      </p>
+      <div class="mt-8">
+        <a href="/download" class="button bg-paper text-ink hover:bg-white">
+          Download ServerDesk
+        </a>
+      </div>
+      <p class="mono-note mt-6 text-paper/45">Free to use. Windows, macOS, and Linux.</p>
+    </div>
+  </Container>
+</section>
