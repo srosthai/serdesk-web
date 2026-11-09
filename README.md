@@ -4,14 +4,40 @@ Marketing and download website for ServerPilot, a locally installed desktop appl
 
 > Your servers. One desktop. Full control.
 
-## Status
+## Requirements
 
-Greenfield. The project has not been scaffolded yet. The implementation target is documented in [ServerPilot_Website_MVP_Astro_Specification.pdf](ServerPilot_Website_MVP_Astro_Specification.pdf).
+- Node.js 24 LTS (see `.nvmrc`)
+- npm 11 or newer
 
-## Planned stack
+## Development
+
+```bash
+npm install
+npm run dev
+```
+
+The dev server runs at `http://localhost:4321` by default.
+
+## Build and check
+
+```bash
+npm run check
+npm run build
+npm run preview
+```
+
+`npm run build` writes the static site to `dist/`. `npm run check` runs Astro's TypeScript and content checks.
+
+## Stack
 
 - Astro with TypeScript
 - Tailwind CSS
 - React islands only for interactive components
 - Astro Content Collections for documentation and changelog
 - Deployed to Cloudflare Pages or Vercel
+
+## Project status
+
+The implementation is tracked in the repository issues and milestones. The source specification is `ServerPilot_Website_MVP_Astro_Specification.pdf`.
+
+The `site` value in `astro.config.mjs` is a placeholder until the production domain is confirmed. Override it with `SITE_URL` at build time.
