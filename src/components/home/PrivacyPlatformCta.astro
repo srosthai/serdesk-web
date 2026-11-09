@@ -1,6 +1,7 @@
 ---
 import { Icon } from "astro-icon/components";
 import Container from "../layout/Container.astro";
+import ScrollRevealHeading from "../ui/ScrollRevealHeading.astro";
 
 const privacyFacts = [
   {
@@ -59,12 +60,12 @@ const platforms = [
   <Container class="section-space">
     <div class="grid gap-12 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-20">
       <div>
-        <h2 class="section-title text-band-foreground">Your infrastructure stays yours.</h2>
+        <ScrollRevealHeading text="Your infrastructure stays yours." class="text-band-foreground" />
         <p class="mt-5 max-w-[42ch] text-[1.0625rem] leading-7 text-band-foreground/65">
           ServerDesk is a desktop application, not a hosted dashboard. It runs on your computer
           and connects directly to the servers you already control.
         </p>
-        <p class="mt-8 max-w-[40ch] font-mono text-[0.6875rem] leading-5 text-band-foreground/65">
+        <p class="mt-8 max-w-[40ch] font-mono text-[0.875rem] leading-5 text-band-foreground/65">
           Local workspace. Direct SSH. No hosted control plane.
         </p>
       </div>
@@ -73,7 +74,7 @@ const platforms = [
         {
           privacyFacts.map((fact) => (
             <div class="grid gap-2 border-b border-band-foreground/15 py-4 sm:grid-cols-[0.72fr_1.28fr] sm:gap-8 sm:py-5">
-              <dt class="font-mono text-[0.6875rem] leading-5 text-band-foreground/65">{fact.label}</dt>
+              <dt class="font-mono text-[0.875rem] leading-5 text-band-foreground/65">{fact.label}</dt>
               <dd class="max-w-[52ch] text-[0.9375rem] leading-6 text-band-foreground/80">
                 {fact.description}
               </dd>
@@ -88,7 +89,7 @@ const platforms = [
 <section class="section-space border-b border-rule">
   <Container>
     <div class="max-w-[700px]">
-      <h2 class="section-title">One desktop app. Three platforms.</h2>
+      <ScrollRevealHeading text="One desktop app. Three platforms." />
       <p class="lede mt-5">
         Install ServerDesk where you work. Each build follows the normal packaging model for its
         platform.
@@ -119,7 +120,7 @@ const platforms = [
       }
     </div>
 
-    <p class="mt-10 max-w-[76ch] border-t border-rule pt-5 text-[0.8125rem] leading-6 text-graphite">
+    <p class="mt-10 max-w-[76ch] border-t border-rule pt-5 text-[0.875rem] leading-6 text-graphite">
       Installers and checksums appear on the Download page when a public release is available.
       Package support depends on the release.
     </p>

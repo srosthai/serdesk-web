@@ -1,0 +1,26 @@
+---
+import ScrollReveal from "../reactbits/ScrollReveal";
+
+interface Props {
+  text: string;
+  class?: string;
+}
+
+const { text, class: className = "" } = Astro.props;
+---
+
+<ScrollReveal
+  client:visible
+  containerClassName={`scroll-reveal-heading section-title !my-0 ${className}`}
+  textClassName=""
+  effect="fade"
+  mode="enter"
+  enableBlur
+  baseOpacity={0.18}
+  blurStrength={6}
+  splitBy="words"
+  duration={0.8}
+  stagger={0.04}
+>
+  {text}
+</ScrollReveal>

@@ -1,12 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
-import PageHeader from "../components/ui/PageHeader.astro";
-import OsSelector from "../components/download/OsSelector";
-import ReleaseDetails from "../components/download/ReleaseDetails.astro";
+import ScrollRevealHeading from "../components/ui/ScrollRevealHeading.astro";
+import DownloadPlatforms from "../components/download/DownloadPlatforms";
+import ReleaseSummary from "../components/download/ReleaseSummary.astro";
+import PackageList from "../components/download/PackageList.astro";
 import EndCta from "../components/marketing/EndCta.astro";
 import { latestRelease } from "../data/releases";
 import { site } from "../data/site";
+
+const checksumsHref =
+  latestRelease.status !== "draft" ? latestRelease.checksumsUrl : site.releases;
 
 const installNotes = [
   {
@@ -20,61 +24,96 @@ const installNotes = [
       "You do not need a ServerDesk account to install the app or connect to a server.",
   },
   {
-    title: "Verify the download",
+    title: "Check what you download",
     description:
-      "When a release is published, this page lists the file size, architecture, and SHA-256 checksum for each installer.",
+      "Every package includes a SHA-256 checksum. Compare it before installing, especially when a release is mirrored elsewhere.",
+  },
+];
+
+const fileGuide = [
+  {
+    platform: "Windows",
+    recommendation: "Use the per-user EXE installer.",
+    detail: "No administrator account is required.",
+  },
+  {
+    platform: "macOS",
+    recommendation: "Use the universal DMG.",
+    detail: "It contains the app for Intel and Apple silicon.",
+  },
+  {
+    platform: "Linux",
+    recommendation: "Use AppImage for a portable build.",
+    detail: "Choose DEB for Debian or Ubuntu, RPM for Fedora.",
   },
 ];
 ---
 
 <BaseLayout
   title="Download"
-  description="Download ServerDesk for Windows, macOS, or Linux. Installers, checksums, and release notes appear here when a public build is available."
+  description="Download the ServerDesk v0.1.0 pre-release for Windows, macOS, or Linux. Browse package files, sizes, and SHA-256 checksums."
 >
-  <Container>
-    <PageHeader
-      title="Download ServerDesk."
-      description="Choose the desktop build for your computer. Installers, checksums, and release notes appear here when a public release is available."
-    >
-      <div
-        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
-      >
-        <span>Current release: {latestRelease ? latestRelease.version : "Not published yet"}</span>
-        <a
-          href={site.releases}
-          target="_blank"
-          rel="noreferrer"
-          class="border-l border-rule pl-5 text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
-        >
-          GitHub Releases
-        </a>
-      </div>
-    </PageHeader>
-  </Container>
+  <section class="relative overflow-hidden border-b border-rule">
+    <Container class="relative z-10 pb-12 pt-14 md:pb-16 md:pt-20">
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,0.72fr)] lg:items-end lg:gap-16">
+        <div>
+          <h1 class="page-title">Download ServerDesk.</h1>
+          <p class="lede mt-5 max-w-[52ch]">
+            Choose the desktop build for your computer. The v0.1.0 pre-release is available
+            now for Windows, macOS, and Linux.
+          </p>
 
-  <section class="section-space border-b border-rule">
-    <Container>
-      <div class="max-w-[700px]">
-        <h2 class="section-title">Choose your platform.</h2>
-        <p class="lede mt-5">
-          Platform detection is only a convenience. Windows, macOS, and Linux choices always stay
-          visible, and every installer links directly to its published asset.
-        </p>
-      </div>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href="#platforms" class="button button-primary">Choose your platform</a>
+            <a
+              href={latestRelease.notesUrl}
+              target="_blank"
+              rel="noreferrer"
+              class="button button-secondary"
+            >
+              Release notes
+            </a>
+          </div>
 
-      <div class="mt-10 md:mt-14">
-        <OsSelector client:load release={latestRelease} />
+          <p class="mono-note mt-6 text-graphite">Free to use. Windows, macOS, and Linux.</p>
+        </div>
+
+        <ReleaseSummary release={latestRelease} />
       </div>
     </Container>
   </section>
 
-  <ReleaseDetails release={latestRelease} />
+  <section id="platforms" class="section-space scroll-mt-24 border-b border-rule">
+    <Container>
+      <div class="max-w-[700px]">
+        <ScrollRevealHeading text="Choose your platform." />
+        <p class="lede mt-5">
+          Platform detection is only a convenience. Windows, macOS, and Linux choices always stay
+          visible, and every package belongs to the same release.
+        </p>
+      </div>
+
+      <div class="mt-10 md:mt-14">
+        <DownloadPlatforms client:visible release={latestRelease} />
+      </div>
+
+      <p class="mt-6 max-w-[72ch] text-[0.875rem] leading-6 text-graphite">
+        {
+          latestRelease.status === "draft"
+            ? "The v0.1.0 packages are built and awaiting publication. Until then, GitHub Releases is the source of truth."
+            : "v0.1.0 is a pre-release. Download links go directly to the GitHub release assets."
+        }
+      </p>
+    </Container>
+  </section>
+
+  <PackageList release={latestRelease} />
 
   <section class="section-space border-b border-rule">
     <Container>
       <div class="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
         <div>
-          <h2 class="section-title">Before you install.</h2>
+          <ScrollRevealHeading text="Before you install." />
           <p class="lede mt-5">
             The desktop app is the only thing you install. Your servers keep the SSH service they
             already run.
@@ -93,6 +132,41 @@ const installNotes = [
             ))
           }
         </dl>
+      </div>
+
+      <div class="mt-16 grid gap-10 border-t border-rule pt-10 lg:grid-cols-2 lg:gap-20">
+        <div class="min-w-0">
+          <h2 class="text-[1.5rem] font-semibold tracking-[-0.035em] md:text-[1.75rem]">
+            Which file should I choose?
+          </h2>
+          <dl class="mt-6 border-t border-rule">
+            {
+              fileGuide.map((item) => (
+                <div class="border-b border-rule py-4">
+                  <dt class="text-[0.9375rem] font-medium text-ink">{item.platform}</dt>
+                  <dd class="mt-1 text-[0.875rem] leading-6 text-graphite">
+                    {item.recommendation} <span class="text-graphite">{item.detail}</span>
+                  </dd>
+                </div>
+              ))
+            }
+          </dl>
+        </div>
+
+        <div class="min-w-0">
+          <h2 class="text-[1.5rem] font-semibold tracking-[-0.035em] md:text-[1.75rem]">
+            Verify your download.
+          </h2>
+          <p class="mt-4 max-w-[52ch] text-[0.9375rem] leading-7 text-graphite">
+            Compare the file checksum with the value in the package list. The
+            <a href={checksumsHref} target="_blank" rel="noreferrer" class="text-link"> SHA-256 checksums</a>
+            are the source of truth.
+          </p>
+          <pre class="mt-5 overflow-x-auto rounded-[10px] bg-band p-4 text-[0.875rem] leading-6 text-band-foreground"><code>sha256sum ServerDesk_0.1.0_x64-setup.exe</code></pre>
+          <p class="mt-3 font-mono text-[0.875rem] leading-5 text-graphite">
+            Use the matching file name for your platform.
+          </p>
+        </div>
       </div>
     </Container>
   </section>
