@@ -298,3 +298,147 @@
     border-color: var(--color-rule);
   }
 }
+
+@layer components {
+  .docs-prose {
+    color: var(--color-graphite);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .docs-prose > :first-child {
+    margin-top: 0;
+  }
+
+  .docs-prose h2 {
+    margin-top: 2.75rem;
+    border-top: 1px solid var(--color-rule);
+    padding-top: 1.75rem;
+    scroll-margin-top: 6rem;
+    color: var(--color-ink);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 1.2;
+  }
+
+  .docs-prose h3 {
+    margin-top: 2rem;
+    scroll-margin-top: 6rem;
+    color: var(--color-ink);
+    font-size: 1.125rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1.3;
+  }
+
+  .docs-prose p,
+  .docs-prose ul,
+  .docs-prose ol,
+  .docs-prose pre,
+  .docs-prose blockquote,
+  .docs-prose table {
+    margin-top: 1rem;
+  }
+
+  .docs-prose ul,
+  .docs-prose ol {
+    padding-left: 1.25rem;
+  }
+
+  .docs-prose ul {
+    list-style: disc;
+  }
+
+  .docs-prose ol {
+    list-style: decimal;
+  }
+
+  .docs-prose li {
+    margin-top: 0.45rem;
+    padding-left: 0.25rem;
+  }
+
+  .docs-prose li::marker {
+    color: var(--color-graphite);
+  }
+
+  .docs-prose strong {
+    color: var(--color-ink);
+    font-weight: 600;
+  }
+
+  .docs-prose a {
+    color: var(--color-ink);
+    text-decoration: underline;
+    text-decoration-color: #c7c7c7;
+    text-underline-offset: 0.24em;
+  }
+
+  .docs-prose a:hover {
+    text-decoration-color: var(--color-ink);
+  }
+
+  .docs-prose code {
+    border: 1px solid var(--color-rule);
+    border-radius: 4px;
+    background: var(--color-mist);
+    padding: 0.1rem 0.3rem;
+    color: var(--color-ink);
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+
+  .docs-prose pre {
+    overflow-x: auto;
+    border-radius: var(--radius-control);
+    background: var(--color-ink);
+    padding: 1rem 1.15rem;
+    color: var(--color-paper);
+  }
+
+  .docs-prose pre code {
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+  }
+
+  .docs-prose blockquote {
+    border-left: 2px solid var(--color-rule);
+    padding-left: 1rem;
+    color: var(--color-graphite);
+  }
+
+  .docs-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.875rem;
+  }
+
+  .docs-prose th,
+  .docs-prose td {
+    border-bottom: 1px solid var(--color-rule);
+    padding: 0.6rem 0.5rem;
+    text-align: left;
+    vertical-align: top;
+  }
+
+  .docs-prose th {
+    color: var(--color-ink);
+    font-weight: 500;
+  }
+
+  .docs-prose img {
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-panel);
+  }
+
+  .docs-prose hr {
+    margin-top: 2rem;
+    border: 0;
+    border-top: 1px solid var(--color-rule);
+  }
+}
