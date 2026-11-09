@@ -5,9 +5,49 @@ import ProductPreviewSection from "../components/home/ProductPreviewSection.astr
 import FeaturesHow from "../components/home/FeaturesHow.astro";
 import PrivacyPlatformCta from "../components/home/PrivacyPlatformCta.astro";
 import { site } from "../data/site";
+import { featuredFeatures } from "../data/features";
+
+const siteUrl = Astro.site ?? new URL("https://serverdesk.srosthai.me");
+const siteId = new URL("/#website", siteUrl).toString();
+const softwareId = new URL("/#software", siteUrl).toString();
+
+const structuredData = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": siteId,
+      url: siteUrl.toString(),
+      name: "ServerDesk",
+      description: site.description,
+      inLanguage: "en",
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": softwareId,
+      name: "ServerDesk",
+      applicationCategory: "DeveloperApplication",
+      operatingSystem: "Windows, macOS, Linux",
+      description: site.description,
+      url: siteUrl.toString(),
+      downloadUrl: site.releases,
+      softwareHelp: new URL("/docs", siteUrl).toString(),
+      screenshot: new URL("/screenshots/servers.webp", siteUrl).toString(),
+      isAccessibleForFree: true,
+      featureList: featuredFeatures.map((feature) => feature.name),
+      sameAs: [site.github],
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
+    },
+  ],
+};
 ---
 
 <BaseLayout title="ServerDesk" description={site.description}>
+  <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   <Hero />
   <ProductPreviewSection />
   <FeaturesHow />
