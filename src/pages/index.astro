@@ -1,20 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
-import Container from "../components/layout/Container.astro";
+import Hero from "../components/home/Hero.astro";
 import { site } from "../data/site";
 ---
 
 <BaseLayout title="ServerDesk" description={site.description}>
-  <section class="section-space">
-    <Container>
-      <h1 class="display-title max-w-[13ch]">Your servers. One desktop. Full control.</h1>
-      <p class="lede mt-7 max-w-[52ch]">
-        A local-first workspace for the servers you run. Connect over SSH, see what is happening,
-        and keep every task in one place.
-      </p>
-      <p class="mt-10 text-[0.9375rem] text-graphite">
-        The full product story is being built in this branch.
-      </p>
-    </Container>
-  </section>
+  <Hero />
 </BaseLayout>
