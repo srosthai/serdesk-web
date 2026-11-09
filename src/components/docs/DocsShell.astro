@@ -1,0 +1,31 @@
+---
+import Container from "../layout/Container.astro";
+import DocsNav from "./DocsNav.astro";
+import type { DocEntry } from "../../lib/docs";
+
+interface Props {
+  entries: DocEntry[];
+  currentId?: string;
+}
+
+const { entries, currentId } = Astro.props;
+---
+
+<Container class="grid gap-10 py-10 md:py-14 lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-16 lg:py-16">
+  <details class="border-y border-rule py-3 lg:hidden">
+    <summary class="cursor-pointer list-none font-mono text-[0.6875rem] text-graphite [&::-webkit-details-marker]:hidden">
+      Documentation menu
+    </summary>
+    <DocsNav entries={entries} currentId={currentId} class="mt-5" />
+  </details>
+
+  <aside class="hidden lg:block">
+    <div class="sticky top-24 max-h-[calc(100dvh-8rem)] overflow-y-auto pr-2">
+      <DocsNav entries={entries} currentId={currentId} />
+    </div>
+  </aside>
+
+  <div class="min-w-0">
+    <slot />
+  </div>
+</Container>
