@@ -8,7 +8,7 @@ const shots = productScreenshots.slice(0, 5);
 
 <section class="section-space border-b border-rule bg-mist">
   <Container>
-    <div class="max-w-[720px]">
+    <div class="max-w-[720px]" data-reveal>
       <h2 class="section-title">The whole server, in one window.</h2>
       <p class="lede mt-5">
         Move between inventory, terminals, services, and files without losing the context of which
@@ -16,7 +16,7 @@ const shots = productScreenshots.slice(0, 5);
       </p>
     </div>
 
-    <div class="mt-10 md:mt-14">
+    <div class="mt-10 md:mt-14" data-reveal>
       <ProductPreview client:visible screenshots={shots} />
     </div>
 
