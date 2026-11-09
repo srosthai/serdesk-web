@@ -1,19 +1,20 @@
 ---
-import "../styles/global.css";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/layout/Container.astro";
+import { site } from "../data/site";
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>ServerPilot</title>
-    <meta name="description" content="A local-first desktop workspace for managing VPS servers over SSH." />
-  </head>
-  <body>
-    <main>
-      <h1>ServerPilot</h1>
-      <p>Website foundation in progress.</p>
-    </main>
-  </body>
-</html>
+<BaseLayout title="ServerPilot" description={site.description}>
+  <section class="section-space">
+    <Container>
+      <h1 class="display-title max-w-[13ch]">Your servers. One desktop. Full control.</h1>
+      <p class="lede mt-7 max-w-[52ch]">
+        A local-first workspace for the servers you run. Connect over SSH, see what is happening,
+        and keep every task in one place.
+      </p>
+      <p class="mt-10 text-[0.9375rem] text-graphite">
+        The full product story is being built in this branch.
+      </p>
+    </Container>
+  </section>
+</BaseLayout>

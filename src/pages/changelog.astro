@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/layout/Container.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+---
+
+<BaseLayout
+  title="Changelog"
+  description="Release notes, fixes, and known issues for ServerPilot."
+>
+  <Container>
+    <PageHeader
+      title="Changelog."
+      description="What changed, what was fixed, and what is still being worked on."
+    />
+    <div class="py-16 md:py-24">
+      <p class="lede">Release notes will appear here when a public build is available.</p>
+      <a href="/" class="button button-secondary mt-8">Back to home</a>
+    </div>
+  </Container>
+</BaseLayout>
