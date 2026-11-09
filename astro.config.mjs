@@ -5,7 +5,7 @@ import icon from "astro-icon";
 import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
-  site: process.env.SITE_URL ?? "https://serverdesk.srosthai.me",
+  site: process.env.SITE_URL ?? "https://serdesk.srosthai.me",
   output: "static",
   devToolbar: { enabled: false },
   integrations: [

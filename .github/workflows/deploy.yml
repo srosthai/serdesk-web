@@ -46,4 +46,4 @@ jobs:
             exit 0
           fi
 
-          npx --yes wrangler@4 pages deploy dist --project-name=serverdesk-web --branch=main
+          npx --yes wrangler@4 pages deploy dist --project-name=serdesk-web --branch=main
