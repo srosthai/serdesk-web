@@ -8,7 +8,13 @@ export default defineConfig({
   site: process.env.SITE_URL ?? "https://serverdesk.srosthai.me",
   output: "static",
   devToolbar: { enabled: false },
-  integrations: [react(), sitemap(), icon()],
+  integrations: [
+    react(),
+    sitemap({
+      filter: (page) => !page.endsWith("/404") && !page.endsWith("/404/"),
+    }),
+    icon(),
+  ],
   vite: {
     plugins: [tailwindcss()],
   },

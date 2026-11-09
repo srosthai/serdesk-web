@@ -34,7 +34,32 @@ npm run preview
 - Tailwind CSS
 - React islands only for interactive components
 - Astro Content Collections for documentation and changelog
-- Deployed to Cloudflare Pages or Vercel
+- Deployed to Cloudflare Pages
+
+## Branch flow
+
+- Feature branches merge into `dev`.
+- `dev` merges into `main`.
+- `main` is the production branch and triggers the deployment workflow.
+- The `production` branch is not used.
+
+## Deployment
+
+The site is a static build served by Cloudflare Pages:
+
+- Pages project: `serverdesk-web`
+- Production branch: `main`
+- Production domain: `https://serverdesk.srosthai.me`
+- Build output: `dist/`
+
+GitHub Actions runs `npm ci`, `npm run check`, and `npm run build` for every pull request and every push to `dev` or `main`.
+
+Deployment runs on every push to `main`. Add these repository secrets before enabling production deploys:
+
+- `CLOUDFLARE_API_TOKEN`
+- `CLOUDFLARE_ACCOUNT_ID`
+
+If the secrets are missing, the deployment workflow builds the site and skips the upload with a warning. Create the Pages project once with `npx wrangler@4 pages project create serverdesk-web` or through the Cloudflare dashboard.
 
 ## Project status
 
