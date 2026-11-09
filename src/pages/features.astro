@@ -2,20 +2,108 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
+import FeatureGroup from "../components/features/FeatureGroup.astro";
+import EndCta from "../components/marketing/EndCta.astro";
+import { features } from "../data/features";
+import { productScreenshots } from "../data/screenshots";
+
+const screenshot = (id: string) => productScreenshots.find((shot) => shot.id === id)!;
+const feature = (id: string) => features.find((item) => item.id === id)!;
+
+const servicesAndFiles = [feature("services"), feature("files")];
 ---
 
 <BaseLayout
   title="Features"
-  description="Server management, SSH connections, monitoring, terminal, services, files, and Laravel tools in one desktop workspace."
+  description="Server management, SSH connections, monitoring, terminal, services, files, and Laravel tools in one local desktop workspace."
 >
   <Container>
     <PageHeader
-      title="Everything you need to run the server."
-      description="ServerDesk brings the routine work of managing a VPS into one focused desktop application."
-    />
-    <div class="py-16 md:py-24">
-      <p class="lede">The full feature set is being documented on this page.</p>
-      <a href="/" class="button button-secondary mt-8">Back to home</a>
-    </div>
+      title="A complete desktop for the server."
+      description="Connect, inspect, and act without switching between terminals, dashboards, and file clients. These are the capabilities available in the current build."
+    >
+      <div
+        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
+      >
+        <span>Windows, macOS, Linux</span>
+        <span class="border-l border-rule pl-5">Free to use</span>
+        <span class="border-l border-rule pl-5">Direct SSH</span>
+      </div>
+    </PageHeader>
   </Container>
+
+  <FeatureGroup
+    title="Connect with context."
+    description="The server list is the map. Every connection keeps its identity, authentication method, and host-key state visible before you run anything."
+    features={[feature("server-inventory"), feature("ssh-connections")]}
+    image={screenshot("servers")}
+  />
+
+  <FeatureGroup
+    title="See the state. Open the shell."
+    description="A live server is more than a green dot. ServerDesk shows the sample time, the source of each metric, and the terminal context for the server you selected."
+    features={[feature("monitoring"), feature("terminal")]}
+    image={screenshot("overview")}
+    reverse
+  />
+
+  <section class="section-space border-b border-rule bg-mist">
+    <Container>
+      <div class="max-w-[720px]">
+        <h2 class="section-title">Control the server, not just watch it.</h2>
+        <p class="lede mt-5">
+          Actions are explicit, bounded, and verified. The app does not assume a common service
+          exists, and it does not hide a failed transfer.
+        </p>
+      </div>
+
+      <figure class="mt-10 md:mt-14">
+        <div class="overflow-hidden rounded-[16px] border border-rule bg-paper p-1.5">
+          <img
+            src={screenshot("services").src}
+            alt={screenshot("services").alt}
+            width={screenshot("services").width}
+            height={screenshot("services").height}
+            loading="lazy"
+            decoding="async"
+            class="aspect-[16/10] w-full rounded-[11px] object-cover"
+          />
+        </div>
+        <figcaption
+          class="mt-3 flex items-center justify-between gap-4 font-mono text-[0.6875rem] leading-5 text-graphite"
+        >
+          <span>Services</span>
+          <span>Actual app view</span>
+        </figcaption>
+      </figure>
+
+      <div class="mt-10 grid gap-8 md:grid-cols-2 md:gap-14">
+        {
+          servicesAndFiles.map((item) => (
+            <div class="border-t border-rule pt-5">
+              <h3 class="text-[1rem] font-medium tracking-[-0.015em]">{item.name}</h3>
+              <p class="mt-2 max-w-[52ch] text-[0.9375rem] leading-7 text-graphite">{item.detail}</p>
+            </div>
+          ))
+        }
+      </div>
+    </Container>
+  </section>
+
+  <FeatureGroup
+    title="Laravel work, with a short leash."
+    description="Project detection is deliberate, not a background scan. Actions come from a fixed list, and output stays readable."
+    features={[feature("laravel"), feature("logs-history")]}
+    image={screenshot("projects")}
+  />
+
+  <EndCta
+    title="Bring the whole server into one window."
+    description="Download ServerDesk and connect your first VPS in a few minutes. The app runs locally, and the documentation covers the first connection end to end."
+    primaryLabel="Download ServerDesk"
+    primaryHref="/download"
+    secondaryLabel="Read the documentation"
+    secondaryHref="/docs"
+    note="Free to use. Windows, macOS, and Linux."
+  />
 </BaseLayout>

@@ -1,0 +1,48 @@
+---
+import Container from "../layout/Container.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  primaryLabel: string;
+  primaryHref: string;
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  note?: string;
+}
+
+const {
+  title,
+  description,
+  primaryLabel,
+  primaryHref,
+  secondaryLabel,
+  secondaryHref,
+  note,
+} = Astro.props;
+---
+
+<section class="bg-ink text-paper">
+  <Container class="py-20 md:py-28">
+    <div class="max-w-[780px]">
+      <h2 class="text-[clamp(2.5rem,5vw,4rem)] font-semibold leading-[0.98] tracking-[-0.05em] text-paper">
+        {title}
+      </h2>
+      <p class="mt-5 max-w-[52ch] text-[1.0625rem] leading-7 text-paper/65">{description}</p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={primaryHref} class="button bg-paper text-ink hover:bg-white">{primaryLabel}</a>
+        {
+          secondaryLabel && secondaryHref ? (
+            <a
+              href={secondaryHref}
+              class="button border-paper/25 text-paper hover:bg-paper/10"
+            >
+              {secondaryLabel}
+            </a>
+          ) : null
+        }
+      </div>
+      {note ? <p class="mono-note mt-6 text-paper/45">{note}</p> : null}
+    </div>
+  </Container>
+</section>
