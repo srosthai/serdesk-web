@@ -2,10 +2,12 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/home/Hero.astro";
 import ProductPreviewSection from "../components/home/ProductPreviewSection.astro";
+import FeaturesHow from "../components/home/FeaturesHow.astro";
 import { site } from "../data/site";
 ---
 
 <BaseLayout title="ServerDesk" description={site.description}>
   <Hero />
   <ProductPreviewSection />
+  <FeaturesHow />
 </BaseLayout>
