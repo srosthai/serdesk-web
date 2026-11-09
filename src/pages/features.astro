@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/layout/Container.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+---
+
+<BaseLayout
+  title="Features"
+  description="Server management, SSH connections, monitoring, terminal, services, files, and Laravel tools in one desktop workspace."
+>
+  <Container>
+    <PageHeader
+      title="Everything you need to run the server."
+      description="ServerPilot brings the routine work of managing a VPS into one focused desktop application."
+    />
+    <div class="py-16 md:py-24">
+      <p class="lede">The full feature set is being documented on this page.</p>
+      <a href="/" class="button button-secondary mt-8">Back to home</a>
+    </div>
+  </Container>
+</BaseLayout>

@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/layout/Container.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+---
+
+<BaseLayout
+  title="Download"
+  description="Download ServerPilot for Windows, macOS, or Linux. Installers are published when a public release is available."
+>
+  <Container>
+    <PageHeader
+      title="Download ServerPilot."
+      description="Choose your platform. Installers, checksums, and release notes appear here when a public release is published."
+    />
+    <div class="py-16 md:py-24">
+      <p class="lede">The download experience is being connected to release data.</p>
+      <a href="/" class="button button-secondary mt-8">Back to home</a>
+    </div>
+  </Container>
+</BaseLayout>

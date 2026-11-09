@@ -1,0 +1,163 @@
+---
+import { Icon } from "astro-icon/components";
+import Logo from "./Logo.astro";
+import { primaryNav } from "../../data/site";
+
+const pathname = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/docs" ? pathname.startsWith("/docs") : pathname === href;
+---
+
+<header data-site-header class="site-header sticky top-0 z-50">
+  <div class="container-page flex h-16 items-center justify-between gap-4">
+    <Logo />
+
+    <nav aria-label="Primary" class="hidden items-center gap-8 md:flex">
+      {
+        primaryNav.map((item) => (
+          <a
+            href={item.href}
+            class="nav-link"
+            aria-current={isActive(item.href) ? "page" : undefined}
+          >
+            {item.label}
+          </a>
+        ))
+      }
+    </nav>
+
+    <div class="hidden items-center gap-3 md:flex">
+      <a
+        href="https://github.com/srosthai/ServerDesk"
+        class="nav-link inline-flex items-center gap-1.5"
+        target="_blank"
+        rel="noreferrer"
+      >
+        GitHub
+        <Icon name="ph:arrow-up-right" class="size-3.5" aria-hidden="true" />
+      </a>
+      <a href="/download" class="button button-primary">Download</a>
+    </div>
+
+    <details class="relative md:hidden" data-mobile-nav>
+      <summary
+        class="grid size-10 cursor-pointer list-none place-items-center rounded-[10px] border border-rule text-ink transition-colors hover:bg-mist [&::-webkit-details-marker]:hidden"
+        aria-label="Open menu"
+      >
+        <span class="nav-toggle-lines" aria-hidden="true">
+          <span></span>
+          <span></span>
+        </span>
+      </summary>
+
+      <div
+        class="nav-panel absolute right-0 top-12 w-[min(86vw,20rem)] border border-rule bg-paper p-3 shadow-[0_24px_60px_rgba(17,17,17,0.08)]"
+      >
+        <nav aria-label="Mobile" class="grid">
+          {
+            primaryNav.map((item) => (
+              <a
+                href={item.href}
+                class="flex items-center justify-between border-b border-rule px-2 py-3 text-[0.9375rem] font-medium text-ink no-underline last:border-b-0"
+                aria-current={isActive(item.href) ? "page" : undefined}
+              >
+                {item.label}
+                <Icon name="ph:arrow-right" class="size-4 text-graphite" aria-hidden="true" />
+              </a>
+            ))
+          }
+          <a
+            href="https://github.com/srosthai/ServerDesk"
+            class="flex items-center justify-between border-b border-rule px-2 py-3 text-[0.9375rem] font-medium text-ink no-underline"
+            target="_blank"
+            rel="noreferrer"
+          >
+            GitHub
+            <Icon name="ph:arrow-up-right" class="size-4 text-graphite" aria-hidden="true" />
+          </a>
+        </nav>
+        <a href="/download" class="button button-primary mt-3 w-full">Download</a>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .nav-toggle-lines {
+    display: grid;
+    width: 18px;
+    gap: 5px;
+  }
+
+  .nav-toggle-lines span {
+    display: block;
+    height: 1.5px;
+    background: currentColor;
+    transition: transform 180ms ease;
+  }
+
+  details[open] .nav-toggle-lines span:first-child {
+    transform: translateY(3.25px) rotate(45deg);
+  }
+
+  details[open] .nav-toggle-lines span:last-child {
+    transform: translateY(-3.25px) rotate(-45deg);
+  }
+
+  .nav-panel {
+    animation: nav-in 180ms ease both;
+  }
+
+  @keyframes nav-in {
+    from {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .nav-panel {
+      animation: none;
+    }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>("[data-site-header]");
+  const sentinel = document.querySelector("[data-nav-sentinel]");
+
+  if (header && sentinel && "IntersectionObserver" in window) {
+    const observer = new IntersectionObserver(
+      ([entry]) => header.classList.toggle("is-scrolled", !entry.isIntersecting),
+      { rootMargin: "0px" },
+    );
+    observer.observe(sentinel);
+  }
+
+  const mobileNav = document.querySelector<HTMLDetailsElement>("[data-mobile-nav]");
+
+  if (mobileNav) {
+    mobileNav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        mobileNav.removeAttribute("open");
+      });
+    });
+
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && mobileNav.open) {
+        mobileNav.removeAttribute("open");
+        mobileNav.querySelector("summary")?.focus();
+      }
+    });
+
+    document.addEventListener("click", (event) => {
+      if (mobileNav.open && !mobileNav.contains(event.target as Node)) {
+        mobileNav.removeAttribute("open");
+      }
+    });
+  }
+</script>
