@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
+import ScrollRevealHeading from "../components/ui/ScrollRevealHeading.astro";
 import EndCta from "../components/marketing/EndCta.astro";
 import { site } from "../data/site";
 
@@ -54,7 +55,7 @@ const principles = [
     <Container>
       <div class="grid gap-12 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)] lg:gap-20">
         <div>
-          <h2 class="section-title">Built for the work between deploys.</h2>
+          <ScrollRevealHeading text="Built for the work between deploys." />
           <div class="mt-6 max-w-[62ch] space-y-5 text-[1rem] leading-7 text-graphite">
             <p>
               Most server tools ask you to keep a browser tab open, copy a command into a
@@ -81,11 +82,11 @@ const principles = [
           </div>
         </div>
 
-        <dl class="border-t border-rule">
+        <dl class="border-t border-rule" data-reveal>
           {
             facts.map((fact) => (
               <div class="grid gap-2 border-b border-rule py-4 sm:grid-cols-[0.62fr_1.38fr] sm:gap-6">
-                <dt class="font-mono text-[0.6875rem] leading-5 text-graphite">{fact.label}</dt>
+                <dt class="font-mono text-[0.875rem] leading-5 text-graphite">{fact.label}</dt>
                 <dd class="text-[0.9375rem] leading-6 text-ink">
                   {fact.href ? (
                     <a
@@ -111,13 +112,13 @@ const principles = [
   <section class="section-space border-b border-rule bg-mist">
     <Container>
       <div class="max-w-[700px]">
-        <h2 class="section-title">Three rules the product follows.</h2>
+        <ScrollRevealHeading text="Three rules the product follows." />
         <p class="lede mt-5">
           These are the constraints behind the interface, not a marketing promise.
         </p>
       </div>
 
-      <div class="mt-12 grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-rule">
+      <div class="mt-12 grid gap-8 md:grid-cols-3 md:gap-0 md:divide-x md:divide-rule" data-reveal>
         {
           principles.map((principle, index) => (
             <div class:list={["border-t border-rule pt-6 md:border-t-0 md:pt-0", index > 0 ? "md:pl-8" : ""]}>
@@ -154,7 +155,7 @@ const principles = [
 
         <div id="privacy" class="scroll-mt-28">
           <h2 class="text-[1.75rem] font-semibold tracking-[-0.04em] md:text-[2rem]">Privacy</h2>
-          <p class="mt-3 font-mono text-[0.6875rem] leading-5 text-graphite">Last updated November 2026</p>
+          <p class="mt-3 font-mono text-[0.875rem] leading-5 text-graphite">Last updated November 2026</p>
           <div class="mt-4 space-y-4 text-[0.9375rem] leading-7 text-graphite">
             <p>
               This website is a static site. It does not create accounts, set cookies, run

@@ -34,7 +34,7 @@ const lists = [
       description="What changed, what was fixed, and what is still being worked on. Only verified entries are published here."
     >
       <div
-        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
+        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.875rem] leading-5 text-graphite"
       >
         <span>{entries.length} {entries.length === 1 ? "entry" : "entries"}</span>
         <a
@@ -73,7 +73,7 @@ const lists = [
             >
               <div class="grid gap-8 lg:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] lg:gap-16">
                 <div>
-                  <p class="font-mono text-[0.6875rem] leading-5 text-graphite">Version</p>
+                  <p class="font-mono text-[0.875rem] leading-5 text-graphite">Version</p>
                   <h2 class="mt-2 text-[2.5rem] font-semibold tracking-[-0.05em]">
                     v{entry.data.version}
                   </h2>
@@ -82,7 +82,7 @@ const lists = [
                       {dateFormatter.format(entry.data.releaseDate)}
                     </time>
                   </p>
-                  <span class="mt-5 inline-flex border border-rule px-2 py-1 font-mono text-[0.625rem] leading-4 text-graphite">
+                  <span class="mt-5 inline-flex border border-rule px-2 py-1 font-mono text-[0.875rem] leading-4 text-graphite">
                     {entry.data.status === "release" ? "Release" : "Development preview"}
                   </span>
                 </div>
@@ -99,7 +99,7 @@ const lists = [
 
                       return (
                         <section class:list={[list.key === "added" ? "md:col-span-2" : ""]}>
-                          <h3 class="font-mono text-[0.6875rem] leading-5 text-graphite">
+                          <h3 class="font-mono text-[0.875rem] leading-5 text-graphite">
                             {list.label}
                           </h3>
                           <ul

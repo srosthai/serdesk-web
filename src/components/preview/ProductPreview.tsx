@@ -134,7 +134,7 @@ export default function ProductPreview({ screenshots }: Props) {
             tabIndex={index === active ? 0 : -1}
             onClick={() => selectTab(index)}
             onKeyDown={(event) => onTabKeyDown(event, index)}
-            className={`relative shrink-0 pb-1 text-[0.8125rem] font-medium transition-colors ${
+            className={`relative shrink-0 pb-1 text-[0.875rem] font-medium transition-colors ${
               index === active ? "text-ink" : "text-graphite hover:text-ink"
             }`}
           >
@@ -177,13 +177,13 @@ export default function ProductPreview({ screenshots }: Props) {
         </div>
 
         <div className="mt-4 flex flex-wrap items-center justify-between gap-4">
-          <p className="text-[0.8125rem] leading-6 text-graphite">
+          <p className="text-[0.875rem] leading-6 text-graphite">
             {current.view} view of the ServerDesk desktop workspace.
           </p>
           <button
             type="button"
             onClick={openLightbox}
-            className="inline-flex items-center gap-2 text-[0.8125rem] font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
+            className="inline-flex items-center gap-2 text-[0.875rem] font-medium text-ink underline decoration-rule underline-offset-4 transition-colors hover:decoration-ink"
           >
             <ArrowsOutIcon className="size-4" aria-hidden="true" />
             View larger
@@ -204,7 +204,7 @@ export default function ProductPreview({ screenshots }: Props) {
               }}
             >
               <div className="flex items-center justify-between gap-4">
-                <p id={titleId} className="font-mono text-[0.75rem] text-band-foreground/70">
+                <p id={titleId} className="font-mono text-[0.875rem] text-band-foreground/70">
                   {current.view}
                 </p>
                 <button
@@ -246,7 +246,7 @@ export default function ProductPreview({ screenshots }: Props) {
                 </button>
               </div>
 
-              <p className="mx-auto max-w-[70ch] text-center text-[0.8125rem] leading-6 text-band-foreground/60">
+              <p className="mx-auto max-w-[70ch] text-center text-[0.875rem] leading-6 text-band-foreground/60">
                 {current.alt}
               </p>
             </div>,
