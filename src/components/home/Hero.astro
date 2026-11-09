@@ -1,0 +1,87 @@
+---
+import Container from "../layout/Container.astro";
+import Threads from "../reactbits/Threads";
+import { heroScreenshot } from "../../data/screenshots";
+import { site } from "../../data/site";
+---
+
+<section class="relative isolate overflow-hidden border-b border-rule">
+  <div
+    aria-hidden="true"
+    class="absolute inset-y-0 right-0 z-0 w-full opacity-40 lg:w-[68%] lg:opacity-70 [mask-image:linear-gradient(to_right,transparent_0%,black_38%,black_100%)]"
+  >
+    <Threads
+      client:load
+      className="h-full w-full"
+      color="#111111"
+      accentColor="#111111"
+      amplitude={1.35}
+      distance={0.35}
+      enableMouseInteraction
+      lineCount={58}
+      thickness={0.5}
+      softness={1.1}
+      speed={0.28}
+      waves={1.1}
+      split={0.05}
+      fray={0.55}
+      angle={18}
+      seed={7}
+      parting={0.45}
+      taper={0.9}
+      brightness={1.15}
+      fade={0.16}
+      opacity={0.22}
+    />
+  </div>
+
+  <Container class="relative z-10 pb-12 pt-12 md:pb-16 md:pt-16 lg:pb-20 lg:pt-20">
+    <h1 class="display-title max-w-[1120px]">
+      <span class="block">Your servers.</span>
+      <span class="block">One desktop. Full control.</span>
+    </h1>
+
+    <div
+      class="mt-10 grid gap-10 lg:mt-12 lg:grid-cols-[minmax(0,0.78fr)_minmax(0,1.22fr)] lg:items-start lg:gap-12"
+    >
+      <div class="max-w-[46ch]">
+        <p class="lede">
+          Manage your VPS servers from one desktop application. Connect through SSH, monitor
+          resources, manage services, browse files, and work with your servers from one place.
+        </p>
+
+        <div class="mt-8 flex flex-wrap gap-3">
+          <a href="/download" class="button button-primary">Download ServerDesk</a>
+          <a href="/features" class="button button-secondary">Explore features</a>
+        </div>
+
+        <p class="mono-note mt-7 max-w-[38ch] text-graphite">
+          Free to use for Windows, macOS, and Linux. No cloud account required.
+        </p>
+      </div>
+
+      <figure class="min-w-0">
+        <div class="overflow-hidden rounded-[16px] border border-rule bg-mist p-1.5">
+          <img
+            src={heroScreenshot.src}
+            alt={heroScreenshot.alt}
+            width={heroScreenshot.width}
+            height={heroScreenshot.height}
+            class="aspect-[16/10] w-full rounded-[11px] object-cover"
+            loading="eager"
+            fetchpriority="high"
+            decoding="async"
+          />
+        </div>
+        <figcaption
+          class="mt-3 flex items-center justify-between gap-4 font-mono text-[0.6875rem] leading-5 text-graphite"
+        >
+          <span>Server inventory</span>
+          <span class="text-right">Actual app view</span>
+        </figcaption>
+      </figure>
+    </div>
+
+    <p class="sr-only">{site.description}</p>
+  </Container>
+</section>
