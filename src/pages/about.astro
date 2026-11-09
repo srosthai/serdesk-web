@@ -1,0 +1,21 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Container from "../components/layout/Container.astro";
+import PageHeader from "../components/ui/PageHeader.astro";
+---
+
+<BaseLayout
+  title="About"
+  description="ServerDesk is a local-first desktop application for managing VPS servers over SSH."
+>
+  <Container>
+    <PageHeader
+      title="A quieter way to run servers."
+      description="ServerDesk is built for people who manage their own infrastructure and want one clear place to do it."
+    />
+    <div class="py-16 md:py-24">
+      <p class="lede">The project story, license, and privacy details are being written.</p>
+      <a href="/" class="button button-secondary mt-8">Back to home</a>
+    </div>
+  </Container>
+</BaseLayout>
