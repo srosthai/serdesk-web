@@ -83,7 +83,7 @@ const lists = [
                     </time>
                   </p>
                   <span class="mt-5 inline-flex border border-rule px-2 py-1 font-mono text-[0.875rem] leading-4 text-graphite">
-                    {entry.data.status === "release" ? "Release" : "Development preview"}
+                    {entry.data.status === "release" ? "Release" : entry.data.status === "prerelease" ? "Pre-release" : "Development preview"}
                   </span>
                 </div>
 
