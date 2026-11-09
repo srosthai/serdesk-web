@@ -8,10 +8,20 @@ import { site } from "../../data/site";
 <section class="relative isolate overflow-hidden border-b border-rule">
   <div
     aria-hidden="true"
-    class="absolute inset-y-0 right-0 z-0 w-full opacity-40 lg:w-[68%] lg:opacity-70 [mask-image:linear-gradient(to_right,transparent_0%,black_38%,black_100%)]"
+    class="absolute inset-y-0 right-0 z-0 h-full w-full opacity-40 lg:hidden [mask-image:linear-gradient(to_right,transparent_0%,black_38%,black_100%)]"
+  >
+    <div
+      class="h-full w-full bg-[radial-gradient(circle,rgba(17,17,17,0.28)_1px,transparent_1px)] [background-size:22px_22px]"
+    >
+    </div>
+  </div>
+
+  <div
+    aria-hidden="true"
+    class="absolute inset-y-0 right-0 z-0 hidden w-[68%] opacity-70 lg:block [mask-image:linear-gradient(to_right,transparent_0%,black_38%,black_100%)]"
   >
     <Threads
-      client:load
+      client:media="(min-width: 1024px)"
       className="h-full w-full"
       color="#111111"
       accentColor="#111111"
@@ -37,7 +47,7 @@ import { site } from "../../data/site";
 
   <Container class="relative z-10 pb-12 pt-12 md:pb-16 md:pt-16 lg:pb-20 lg:pt-20">
     <h1 class="display-title max-w-[1120px]">
-      <span class="block">Your servers.</span>
+      <span class="block">Your servers.</span>{" "}
       <span class="block">One desktop. Full control.</span>
     </h1>
 
