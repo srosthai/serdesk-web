@@ -1,0 +1,66 @@
+---
+import Container from "../layout/Container.astro";
+import { featuredFeatures, howItWorks } from "../../data/features";
+---
+
+<section class="section-space border-b border-rule">
+  <Container>
+    <div class="max-w-[700px]">
+      <h2 class="section-title">The routine work stays in reach.</h2>
+      <p class="lede mt-5">
+        Inventory, connections, monitoring, terminals, services, and files share one local
+        workspace. You should not need six browser tabs to answer a simple server question.
+      </p>
+    </div>
+
+    <div class="mt-12 md:mt-16">
+      {
+        featuredFeatures.map((feature) => (
+          <article class="grid gap-3 border-t border-rule py-6 md:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] md:gap-10 md:py-7">
+            <h3 class="text-[1.0625rem] font-medium tracking-[-0.02em] md:text-[1.125rem]">
+              {feature.name}
+            </h3>
+            <p class="max-w-[56ch] text-[0.9375rem] leading-7 text-graphite">
+              {feature.description}
+            </p>
+          </article>
+        ))
+      }
+      <div class="border-t border-rule pt-6">
+        <a href="/features" class="text-link text-[0.9375rem] font-medium">See every feature</a>
+      </div>
+    </div>
+  </Container>
+</section>
+
+<section class="section-space border-b border-rule">
+  <Container>
+    <div class="max-w-[680px]">
+      <h2 class="section-title">A short path from download to a connected server.</h2>
+      <p class="lede mt-5">
+        No account setup, no agent to install, and no hosted dashboard in the middle.
+      </p>
+    </div>
+
+    <ol class="mt-12 grid gap-0 md:mt-16 md:grid-cols-3">
+      {
+        howItWorks.map((step, index) => (
+          <li
+            class:list={[
+              "border-t border-rule py-7 md:border-t-0 md:border-l md:px-7 md:py-2",
+              index === 0 ? "md:border-l-0 md:pl-0" : "",
+            ]}
+          >
+            <p class="font-mono text-[0.6875rem] leading-5 text-graphite">{step.number}</p>
+            <h3 class="mt-5 text-[1.25rem] font-medium tracking-[-0.025em] md:text-[1.375rem]">
+              {step.title}
+            </h3>
+            <p class="mt-3 max-w-[38ch] text-[0.9375rem] leading-7 text-graphite">
+              {step.description}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
+  </Container>
+</section>
