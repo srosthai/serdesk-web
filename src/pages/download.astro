@@ -2,20 +2,108 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
+import OsSelector from "../components/download/OsSelector";
+import ReleaseDetails from "../components/download/ReleaseDetails.astro";
+import EndCta from "../components/marketing/EndCta.astro";
+import { latestRelease } from "../data/releases";
+import { site } from "../data/site";
+
+const installNotes = [
+  {
+    title: "Install on your computer",
+    description:
+      "ServerDesk is the desktop application you use to manage servers. It does not run on the VPS.",
+  },
+  {
+    title: "No account required",
+    description:
+      "You do not need a ServerDesk account to install the app or connect to a server.",
+  },
+  {
+    title: "Verify the download",
+    description:
+      "When a release is published, this page lists the file size, architecture, and SHA-256 checksum for each installer.",
+  },
+];
 ---
 
 <BaseLayout
   title="Download"
-  description="Download ServerDesk for Windows, macOS, or Linux. Installers are published when a public release is available."
+  description="Download ServerDesk for Windows, macOS, or Linux. Installers, checksums, and release notes appear here when a public build is available."
 >
   <Container>
     <PageHeader
       title="Download ServerDesk."
-      description="Choose your platform. Installers, checksums, and release notes appear here when a public release is published."
-    />
-    <div class="py-16 md:py-24">
-      <p class="lede">The download experience is being connected to release data.</p>
-      <a href="/" class="button button-secondary mt-8">Back to home</a>
-    </div>
+      description="Choose the desktop build for your computer. Installers, checksums, and release notes appear here when a public release is available."
+    >
+      <div
+        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
+      >
+        <span>Current release: {latestRelease ? latestRelease.version : "Not published yet"}</span>
+        <a
+          href={site.releases}
+          target="_blank"
+          rel="noreferrer"
+          class="border-l border-rule pl-5 text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+        >
+          GitHub Releases
+        </a>
+      </div>
+    </PageHeader>
   </Container>
+
+  <section class="section-space border-b border-rule">
+    <Container>
+      <div class="max-w-[700px]">
+        <h2 class="section-title">Choose your platform.</h2>
+        <p class="lede mt-5">
+          Platform detection is only a convenience. Windows, macOS, and Linux choices always stay
+          visible, and every installer links directly to its published asset.
+        </p>
+      </div>
+
+      <div class="mt-10 md:mt-14">
+        <OsSelector client:load release={latestRelease} />
+      </div>
+    </Container>
+  </section>
+
+  <ReleaseDetails release={latestRelease} />
+
+  <section class="section-space border-b border-rule">
+    <Container>
+      <div class="grid gap-10 lg:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] lg:gap-20">
+        <div>
+          <h2 class="section-title">Before you install.</h2>
+          <p class="lede mt-5">
+            The desktop app is the only thing you install. Your servers keep the SSH service they
+            already run.
+          </p>
+        </div>
+
+        <dl class="border-t border-rule">
+          {
+            installNotes.map((note) => (
+              <div class="border-b border-rule py-5">
+                <dt class="text-[1rem] font-medium tracking-[-0.015em]">{note.title}</dt>
+                <dd class="mt-2 max-w-[54ch] text-[0.9375rem] leading-7 text-graphite">
+                  {note.description}
+                </dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </Container>
+  </section>
+
+  <EndCta
+    title="Need a hand with the first connection?"
+    description="The documentation walks through installation, SSH keys, host verification, and the first server session."
+    primaryLabel="Read the documentation"
+    primaryHref="/docs"
+    secondaryLabel="View the changelog"
+    secondaryHref="/changelog"
+    note="Free to use. Windows, macOS, and Linux."
+  />
 </BaseLayout>
