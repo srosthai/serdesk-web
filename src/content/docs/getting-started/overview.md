@@ -32,5 +32,5 @@ the server you connect to. They do not pass through a ServerDesk-hosted backend.
 
 ## Next step
 
-Download the desktop application, then follow the first-connection guide when it is published.
-Until then, the [Download page](/download) explains the current release state.
+Download the current desktop build from the [Download page](/download), then continue with the
+[first-connection guide](/docs/getting-started/first-connection).

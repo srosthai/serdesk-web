@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://serverdesk.srosthai.me/sitemap-index.xml
+Sitemap: https://serdesk.srosthai.me/sitemap-index.xml

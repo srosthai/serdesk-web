@@ -10,8 +10,8 @@ order: 2
 ServerDesk is a desktop application. Install it on the computer you use to manage servers, not
 on the VPS.
 
-Public installers are not published yet. The [Download page](/download) shows the current release
-state and will link directly to the published assets when they are available.
+Download the current pre-release from the [Download page](/download). The page lists the exact
+package files, sizes, architectures, and SHA-256 checksums for the release.
 
 ## Windows
 
@@ -52,8 +52,8 @@ chmod +x <downloaded-package>.AppImage
 
 ## Verify the download
 
-When a release publishes checksums, compare the file you downloaded against the value on the
-release page.
+Compare the file you downloaded against the SHA-256 value listed on the [Download page](/download)
+or in the release's `SHA256SUMS` file.
 
 ```bash
 sha256sum <downloaded-file>
