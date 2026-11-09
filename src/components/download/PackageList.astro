@@ -1,0 +1,76 @@
+---
+import { formatBytes, platformMeta, type Release } from "../../data/releases";
+import { site } from "../../data/site";
+import Container from "../layout/Container.astro";
+
+interface Props {
+  release: Release;
+}
+
+const { release } = Astro.props;
+const available = release.status !== "draft";
+const checksumsHref = available ? release.checksumsUrl : site.releases;
+---
+
+<section id="packages" class="section-space scroll-mt-24 border-b border-rule">
+  <Container>
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div>
+      <p class="font-mono text-[0.875rem] leading-5 text-graphite">Release files</p>
+      <h2 class="mt-2 text-[1.75rem] font-semibold tracking-[-0.04em] md:text-[2rem]">
+        Every package, in one place.
+      </h2>
+    </div>
+    <a
+      href={checksumsHref}
+      target="_blank"
+      rel="noreferrer"
+      class="text-[0.875rem] font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+    >
+      SHA-256 checksums
+    </a>
+  </div>
+
+  <div class="mt-8 grid gap-x-12 md:grid-cols-2">
+    {
+      release.assets.map((asset) => {
+        const platform = platformMeta.find((item) => item.id === asset.platform);
+        return (
+          <div class="border-t border-rule py-5">
+            <div class="flex items-start justify-between gap-4">
+              <div class="min-w-0">
+                <p class="font-mono text-[0.875rem] leading-4 text-graphite">
+                  {platform?.name ?? asset.platform} / {asset.format} / {asset.architecture}
+                </p>
+                <p class="mt-1 break-all text-[0.9375rem] font-medium tracking-[-0.01em] text-ink">
+                  {asset.fileName}
+                </p>
+              </div>
+              <span class="shrink-0 font-mono text-[0.875rem] text-graphite">
+                {formatBytes(asset.sizeBytes)}
+              </span>
+            </div>
+
+            <details class="mt-3">
+              <summary class="cursor-pointer list-none font-mono text-[0.875rem] leading-4 text-graphite [&::-webkit-details-marker]:hidden">
+                SHA-256
+              </summary>
+              <code class="mt-2 block break-all font-mono text-[0.875rem] leading-5 text-graphite">
+                {asset.sha256}
+              </code>
+            </details>
+          </div>
+        );
+      })
+    }
+  </div>
+
+  <p class="mt-6 max-w-[72ch] text-[0.875rem] leading-6 text-graphite">
+    {
+      available
+        ? "Compare the SHA-256 value with the file you downloaded. The checksums file is the source of truth."
+        : "These checksums belong to the built release candidate. They become the published values when the GitHub release is made public."
+    }
+  </p>
+  </Container>
+</section>

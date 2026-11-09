@@ -1,0 +1,78 @@
+---
+import {
+  formatBytes,
+  formatReleaseDate,
+  releaseTotalBytes,
+  type Release,
+} from "../../data/releases";
+import { site } from "../../data/site";
+
+interface Props {
+  release: Release;
+}
+
+const { release } = Astro.props;
+const available = release.status !== "draft";
+const totalBytes = releaseTotalBytes(release);
+const statusLabel =
+  release.status === "prerelease"
+    ? "Pre-release"
+    : release.status === "published"
+      ? "Current release"
+      : "Release candidate";
+---
+
+<aside class="rounded-[16px] border border-rule bg-band p-6 text-band-foreground md:p-7">
+  <div class="flex items-center justify-between gap-4">
+    <p class="font-mono text-[0.875rem] leading-4 text-band-foreground/65">
+      {statusLabel}
+    </p>
+    <p class="font-mono text-[0.875rem] leading-4 text-band-foreground/65">v{release.version}</p>
+  </div>
+
+  <p class="mt-8 max-w-[24ch] text-[1.75rem] font-semibold leading-[1.05] tracking-[-0.04em] text-band-foreground">
+    Built for the computer you manage servers from.
+  </p>
+
+  <dl class="mt-7 space-y-3 border-t border-band-foreground/15 pt-4 text-[0.875rem]">
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-band-foreground/65">{available ? "Published" : "Build date"}</dt>
+      <dd class="text-band-foreground">{formatReleaseDate(release.publishedAt ?? release.releaseDate)}</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-band-foreground/65">Files</dt>
+      <dd class="text-band-foreground">{release.assets.length} packages</dd>
+    </div>
+    <div class="flex items-center justify-between gap-4">
+      <dt class="text-band-foreground/65">Total size</dt>
+      <dd class="text-band-foreground">{formatBytes(totalBytes)}</dd>
+    </div>
+  </dl>
+
+  <div class="mt-7 flex flex-wrap gap-3">
+    <a
+      href={site.releases}
+      target="_blank"
+      rel="noreferrer"
+      class="button bg-band-foreground text-band hover:bg-white"
+    >
+      GitHub Releases
+    </a>
+    <a
+      href={release.notesUrl}
+      target="_blank"
+      rel="noreferrer"
+      class="button border-band-foreground/25 text-band-foreground hover:bg-band-foreground/10"
+    >
+      Release notes
+    </a>
+  </div>
+
+  {
+    !available ? (
+      <p class="mt-5 max-w-[42ch] font-mono text-[0.875rem] leading-5 text-band-foreground/65">
+        Installers are built and awaiting publication. Package details below are from this build.
+      </p>
+    ) : null
+  }
+</aside>

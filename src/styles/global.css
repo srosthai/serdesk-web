@@ -189,8 +189,14 @@ html.dark {
       transform 150ms ease;
   }
 
-  .button:active {
-    transform: translateY(1px);
+  a.button:hover,
+  button.button:hover {
+    transform: translateY(-1px);
+  }
+
+  a.button:active,
+  button.button:active {
+    transform: translateY(0) scale(0.99);
   }
 
   .button-primary {
@@ -265,7 +271,7 @@ html.dark {
   .footer-heading {
     color: var(--color-graphite);
     font-family: var(--font-mono);
-    font-size: 0.6875rem;
+    font-size: 0.875rem;
     font-weight: 500;
     letter-spacing: 0.02em;
     line-height: 1.4;
@@ -282,9 +288,17 @@ html.dark {
     color: var(--color-graphite);
   }
 
+  .footer-link svg {
+    transition: transform 150ms ease;
+  }
+
+  .footer-link:hover svg {
+    transform: translate(1px, -1px);
+  }
+
   .mono-note {
     font-family: var(--font-mono);
-    font-size: 0.75rem;
+    font-size: 0.875rem;
     letter-spacing: -0.01em;
     line-height: 1.5;
   }
@@ -424,7 +438,7 @@ html.dark {
     background: transparent;
     padding: 0;
     color: inherit;
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     line-height: 1.7;
   }
 
@@ -574,4 +588,22 @@ html.dark .hero-threads canvas {
 
 html.dark .scroll-top {
   box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
+}
+
+/* ScrollReveal heading inherits the surrounding type scale. */
+.scroll-reveal-heading > span {
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: inherit;
+}
+
+
+@media (prefers-reduced-motion: reduce) {
+  a.button:hover,
+  button.button:hover,
+  a.button:active,
+  button.button:active,
+  .footer-link:hover svg {
+    transform: none;
+  }
 }

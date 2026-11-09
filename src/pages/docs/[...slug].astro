@@ -25,7 +25,7 @@ const { previous, next } = getDocNeighbours(docs, entry.id);
 <BaseLayout title={entry.data.title} description={entry.data.description}>
   <DocsShell entries={docs} currentId={entry.id}>
     <article class="max-w-[74ch]">
-      <p class="font-mono text-[0.6875rem] leading-5 text-graphite">{entry.data.section}</p>
+      <p class="font-mono text-[0.875rem] leading-5 text-graphite">{entry.data.section}</p>
       <h1 class="mt-3 text-[clamp(2.25rem,4vw,3.25rem)] font-semibold leading-[1.02] tracking-[-0.05em]">
         {entry.data.title}
       </h1>
@@ -40,7 +40,7 @@ const { previous, next } = getDocNeighbours(docs, entry.id);
       {
         previous ? (
           <a href={`/docs/${previous.id}`} class="group block max-w-[34ch] no-underline">
-            <span class="font-mono text-[0.625rem] leading-4 text-graphite">Previous</span>
+            <span class="font-mono text-[0.875rem] leading-4 text-graphite">Previous</span>
             <span class="mt-1 block text-[0.9375rem] font-medium text-ink group-hover:underline">
               {previous.data.title}
             </span>
@@ -52,7 +52,7 @@ const { previous, next } = getDocNeighbours(docs, entry.id);
       {
         next ? (
           <a href={`/docs/${next.id}`} class="group block max-w-[34ch] no-underline sm:justify-self-end sm:text-right">
-            <span class="font-mono text-[0.625rem] leading-4 text-graphite">Next</span>
+            <span class="font-mono text-[0.875rem] leading-4 text-graphite">Next</span>
             <span class="mt-1 block text-[0.9375rem] font-medium text-ink group-hover:underline">
               {next.data.title}
             </span>

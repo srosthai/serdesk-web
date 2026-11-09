@@ -80,8 +80,13 @@ const imageUrl = new URL(image, Astro.site);
     <noscript>
       <style>
         [data-theme-toggle],
-        [data-scroll-top] {
+        [data-scroll-top],
+        [data-hero-lightbox-open] {
           display: none !important;
+        }
+
+        [data-animated-content] {
+          visibility: visible !important;
         }
       </style>
     </noscript>
@@ -93,7 +98,6 @@ const imageUrl = new URL(image, Astro.site);
     <main id="main-content">
       <slot />
     </main>
-    <div data-scroll-sentinel aria-hidden="true" class="h-px w-full"></div>
     <Footer />
     <ScrollTop />
 
@@ -156,23 +160,71 @@ const imageUrl = new URL(image, Astro.site);
         });
 
         const top = document.querySelector("[data-scroll-top]");
-        const sentinel = document.querySelector("[data-scroll-sentinel]");
 
         if (top) {
+          let visible = false;
+          let ticking = false;
+
+          const updateVisibility = () => {
+            const next = window.scrollY > 420;
+            if (next !== visible) {
+              visible = next;
+              top.classList.toggle("is-visible", next);
+            }
+            ticking = false;
+          };
+
+          const onScroll = () => {
+            if (ticking) return;
+            ticking = true;
+            window.requestAnimationFrame(updateVisibility);
+          };
+
+          updateVisibility();
+          window.addEventListener("scroll", onScroll, { passive: true });
+          window.addEventListener("resize", onScroll, { passive: true });
+
           top.addEventListener("click", () => {
             const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
             window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
           });
-
-          if (sentinel && "IntersectionObserver" in window) {
-            new IntersectionObserver(
-              ([entry]) => top.classList.toggle("is-visible", entry.isIntersecting),
-              { threshold: 0 },
-            ).observe(sentinel);
-          } else {
-            top.classList.add("is-visible");
-          }
         }
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        const dialogs = Array.from(document.querySelectorAll("dialog[data-screenshot-dialog]"));
+        const triggers = Array.from(document.querySelectorAll("[data-screenshot-open]"));
+        if (dialogs.length === 0 || triggers.length === 0) return;
+
+        const openDialog = (id) => {
+          const dialog = document.getElementById(id);
+          if (!(dialog instanceof HTMLDialogElement)) return;
+          dialog.showModal();
+          document.body.style.overflow = "hidden";
+        };
+
+        triggers.forEach((trigger) => {
+          trigger.addEventListener("click", () => {
+            const id = trigger.getAttribute("data-screenshot-open");
+            if (id) openDialog(id);
+          });
+        });
+
+        dialogs.forEach((dialog) => {
+          dialog.querySelectorAll("[data-screenshot-close]").forEach((button) => {
+            button.addEventListener("click", () => dialog.close());
+          });
+
+          dialog.addEventListener("close", () => {
+            document.body.style.overflow = "";
+          });
+
+          dialog.addEventListener("click", (event) => {
+            if (event.target === dialog) dialog.close();
+          });
+        });
       })();
     </script>
   </body>

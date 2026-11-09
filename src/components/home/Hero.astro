@@ -1,11 +1,12 @@
 ---
+import { Icon } from "astro-icon/components";
 import Container from "../layout/Container.astro";
 import Threads from "../reactbits/Threads";
 import { heroScreenshot } from "../../data/screenshots";
 import { site } from "../../data/site";
 ---
 
-<section class="relative isolate overflow-hidden border-b border-rule">
+<section class="relative isolate flex min-h-[calc(100dvh-4rem)] items-center overflow-hidden border-b border-rule">
   <div
     aria-hidden="true"
     class="absolute inset-y-0 right-0 z-0 h-full w-full opacity-40 lg:hidden [mask-image:linear-gradient(to_right,transparent_0%,black_38%,black_100%)]"
@@ -69,22 +70,38 @@ import { site } from "../../data/site";
 
       <figure class="min-w-0">
         <div class="overflow-hidden rounded-[16px] border border-rule bg-mist p-1.5">
-          <img
-            src={heroScreenshot.src}
-            alt={heroScreenshot.alt}
-            width={heroScreenshot.width}
-            height={heroScreenshot.height}
-            class="aspect-[16/10] w-full rounded-[11px] object-cover"
-            loading="eager"
-            fetchpriority="high"
-            decoding="async"
-          />
+          <button
+            type="button"
+            data-hero-lightbox-open
+            aria-haspopup="dialog"
+            aria-label="Open larger application screenshot"
+            class="block w-full cursor-zoom-in overflow-hidden rounded-[11px]"
+          >
+            <img
+              src={heroScreenshot.src}
+              alt={heroScreenshot.alt}
+              width={heroScreenshot.width}
+              height={heroScreenshot.height}
+              class="aspect-[16/10] w-full rounded-[11px] object-cover transition-transform duration-500 ease-out hover:scale-[1.01]"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+            />
+          </button>
         </div>
         <figcaption
-          class="mt-3 flex items-center justify-between gap-4 font-mono text-[0.6875rem] leading-5 text-graphite"
+          class="mt-3 flex items-center justify-between gap-4 font-mono text-[0.875rem] leading-5 text-graphite"
         >
           <span>Server inventory</span>
-          <span class="text-right">Actual app view</span>
+          <button
+            type="button"
+            data-hero-lightbox-open
+            aria-haspopup="dialog"
+            class="inline-flex items-center gap-1.5 text-right text-graphite underline decoration-rule underline-offset-4 transition-colors hover:text-ink hover:decoration-ink"
+          >
+            Actual app view
+            <Icon name="ph:arrows-out" class="size-3.5" aria-hidden="true" />
+          </button>
         </figcaption>
       </figure>
     </div>
@@ -92,3 +109,63 @@ import { site } from "../../data/site";
     <p class="sr-only">{site.description}</p>
   </Container>
 </section>
+
+
+<dialog
+  data-hero-lightbox
+  aria-labelledby="hero-lightbox-title"
+  class="m-auto w-[min(96vw,1400px)] overflow-hidden rounded-[16px] border border-band-foreground/15 bg-band p-2 text-band-foreground"
+>
+  <div class="flex items-center justify-between gap-4 px-2 py-2">
+    <p id="hero-lightbox-title" class="font-mono text-[0.875rem] text-band-foreground/70">
+      Server inventory
+    </p>
+    <button
+      type="button"
+      data-hero-lightbox-close
+      aria-label="Close larger screenshot"
+      class="inline-flex size-10 items-center justify-center rounded-[10px] border border-band-foreground/25 text-band-foreground transition-colors hover:bg-band-foreground/10"
+    >
+      <Icon name="ph:x" class="size-5" aria-hidden="true" />
+    </button>
+  </div>
+  <img
+    src={heroScreenshot.src}
+    alt={heroScreenshot.alt}
+    width={heroScreenshot.width}
+    height={heroScreenshot.height}
+    class="max-h-[80dvh] w-full rounded-[10px] object-contain"
+  />
+</dialog>
+
+<style>
+  dialog::backdrop {
+    background: rgba(5, 5, 5, 0.9);
+    backdrop-filter: blur(4px);
+  }
+</style>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>("[data-hero-lightbox]");
+  const triggers = document.querySelectorAll<HTMLButtonElement>("[data-hero-lightbox-open]");
+  const close = document.querySelector<HTMLButtonElement>("[data-hero-lightbox-close]");
+
+  if (dialog) {
+    triggers.forEach((trigger) => {
+      trigger.addEventListener("click", () => {
+        dialog.showModal();
+        document.body.style.overflow = "hidden";
+      });
+    });
+
+    close?.addEventListener("click", () => dialog.close());
+
+    dialog.addEventListener("close", () => {
+      document.body.style.overflow = "";
+    });
+
+    dialog.addEventListener("click", (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>

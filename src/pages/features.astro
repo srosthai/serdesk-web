@@ -3,6 +3,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Container from "../components/layout/Container.astro";
 import PageHeader from "../components/ui/PageHeader.astro";
 import FeatureGroup from "../components/features/FeatureGroup.astro";
+import ScrollRevealHeading from "../components/ui/ScrollRevealHeading.astro";
+import ScreenshotFigure from "../components/ui/ScreenshotFigure.astro";
 import EndCta from "../components/marketing/EndCta.astro";
 import { features } from "../data/features";
 import { productScreenshots } from "../data/screenshots";
@@ -23,7 +25,7 @@ const servicesAndFiles = [feature("services"), feature("files")];
       description="Connect, inspect, and act without switching between terminals, dashboards, and file clients. These are the capabilities available in the current build."
     >
       <div
-        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
+        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.875rem] leading-5 text-graphite"
       >
         <span>Windows, macOS, Linux</span>
         <span class="border-l border-rule pl-5">Free to use</span>
@@ -50,32 +52,14 @@ const servicesAndFiles = [feature("services"), feature("files")];
   <section class="section-space border-b border-rule bg-mist">
     <Container>
       <div class="max-w-[720px]">
-        <h2 class="section-title">Control the server, not just watch it.</h2>
+        <ScrollRevealHeading text="Control the server, not just watch it." />
         <p class="lede mt-5">
           Actions are explicit, bounded, and verified. The app does not assume a common service
           exists, and it does not hide a failed transfer.
         </p>
       </div>
 
-      <figure class="mt-10 md:mt-14">
-        <div class="overflow-hidden rounded-[16px] border border-rule bg-paper p-1.5">
-          <img
-            src={screenshot("services").src}
-            alt={screenshot("services").alt}
-            width={screenshot("services").width}
-            height={screenshot("services").height}
-            loading="lazy"
-            decoding="async"
-            class="aspect-[16/10] w-full rounded-[11px] object-cover"
-          />
-        </div>
-        <figcaption
-          class="mt-3 flex items-center justify-between gap-4 font-mono text-[0.6875rem] leading-5 text-graphite"
-        >
-          <span>Services</span>
-          <span>Actual app view</span>
-        </figcaption>
-      </figure>
+      <ScreenshotFigure image={screenshot("services")} frame="paper" class="mt-10 md:mt-14" />
 
       <div class="mt-10 grid gap-8 md:grid-cols-2 md:gap-14">
         {
