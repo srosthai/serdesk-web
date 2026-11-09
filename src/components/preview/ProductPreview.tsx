@@ -198,20 +198,20 @@ export default function ProductPreview({ screenshots }: Props) {
               role="dialog"
               aria-modal="true"
               aria-labelledby={titleId}
-              className="fixed inset-0 z-[80] flex flex-col bg-ink/95 p-4 text-paper backdrop-blur-sm md:p-6"
+              className="fixed inset-0 z-[80] flex flex-col bg-band/95 p-4 text-band-foreground backdrop-blur-sm md:p-6"
               onMouseDown={(event) => {
                 if (event.target === event.currentTarget) closeLightbox();
               }}
             >
               <div className="flex items-center justify-between gap-4">
-                <p id={titleId} className="font-mono text-[0.75rem] text-paper/70">
+                <p id={titleId} className="font-mono text-[0.75rem] text-band-foreground/70">
                   {current.view}
                 </p>
                 <button
                   ref={closeRef}
                   type="button"
                   onClick={closeLightbox}
-                  className="inline-flex size-10 items-center justify-center rounded-[10px] border border-paper/25 text-paper transition-colors hover:bg-paper/10"
+                  className="inline-flex size-10 items-center justify-center rounded-[10px] border border-band-foreground/25 text-band-foreground transition-colors hover:bg-band-foreground/10"
                   aria-label="Close larger view"
                 >
                   <XIcon className="size-5" aria-hidden="true" />
@@ -223,7 +223,7 @@ export default function ProductPreview({ screenshots }: Props) {
                   type="button"
                   onClick={() => step(-1)}
                   aria-label="Previous view"
-                  className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-paper/25 text-paper transition-colors hover:bg-paper/10"
+                  className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-band-foreground/25 text-band-foreground transition-colors hover:bg-band-foreground/10"
                 >
                   <ArrowLeftIcon className="size-4" aria-hidden="true" />
                 </button>
@@ -233,20 +233,20 @@ export default function ProductPreview({ screenshots }: Props) {
                   alt={current.alt}
                   width={current.width}
                   height={current.height}
-                  className="max-h-full min-h-0 w-auto max-w-full rounded-[10px] border border-paper/15 object-contain"
+                  className="max-h-full min-h-0 w-auto max-w-full rounded-[10px] border border-band-foreground/15 object-contain"
                 />
 
                 <button
                   type="button"
                   onClick={() => step(1)}
                   aria-label="Next view"
-                  className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-paper/25 text-paper transition-colors hover:bg-paper/10"
+                  className="inline-flex size-10 shrink-0 items-center justify-center rounded-[10px] border border-band-foreground/25 text-band-foreground transition-colors hover:bg-band-foreground/10"
                 >
                   <ArrowRightIcon className="size-4" aria-hidden="true" />
                 </button>
               </div>
 
-              <p className="mx-auto max-w-[70ch] text-center text-[0.8125rem] leading-6 text-paper/60">
+              <p className="mx-auto max-w-[70ch] text-center text-[0.8125rem] leading-6 text-band-foreground/60">
                 {current.alt}
               </p>
             </div>,
