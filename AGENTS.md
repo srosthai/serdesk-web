@@ -2,16 +2,27 @@
 
 ## Project state
 
-- Greenfield repo: the only file is `ServerPilot_Website_MVP_Astro_Specification.pdf`. There is no `package.json`, Astro scaffold, or git repo yet.
-- The spec is the source of truth. Read it before building. Extract text with:
-  `pdftotext -layout ServerPilot_Website_MVP_Astro_Specification.pdf -`
-- Repo folder is named `Serverdesk-webiste`, but the product is **ServerPilot**. Use ServerPilot in all content and naming.
+- Astro 7 + TypeScript + Tailwind CSS site. The source specification is `ServerPilot_Website_MVP_Astro_Specification.pdf`; the spec uses "ServerPilot" as a working name.
+- The shipped product name is **ServerDesk**, with brand assets in `public/` and production domain `https://serverdesk.srosthai.me`. Use ServerDesk in all site content and naming.
+- Source of truth for visual and product requirements remains the specification. Read it before changing page structure or product claims.
+
+## Commands
+
+```bash
+npm install
+npm run dev
+npm run check
+npm run build
+npm run preview
+```
+
+Run `npm run check` and `npm run build` before committing. The build is static; no SSR adapter.
 
 ## What is being built
 
-- Astro + TypeScript + Tailwind CSS marketing site for ServerPilot, a locally installed desktop app for managing VPS servers over SSH.
-- Static pages rendered by Astro: Home, Features, Download, Documentation, Changelog, About.
-- React islands only for genuinely interactive pieces (OS selector, screenshot gallery/lightbox). Do not build the site in React.
+- Astro + TypeScript + Tailwind CSS marketing site for ServerDesk, a locally installed desktop app for managing VPS servers over SSH.
+- Static pages: Home, Features, Download, Documentation, Changelog, About.
+- React islands only for genuinely interactive pieces (OS selector, screenshot gallery/lightbox, hero background). Do not build the site in React.
 - Content Collections for documentation and changelog. Data files for features and releases (`src/data/features.ts`, `src/data/releases.ts`).
 - Follow the structure in spec section 7 unless there is a concrete reason to deviate.
 - Deployment target: Cloudflare Pages or Vercel, static output. Downloads point to GitHub Releases or another stable host.
@@ -22,23 +33,25 @@
 - Never invent download counts, ratings, testimonials, customer logos, compatibility claims, or platform badges.
 - Show only installers that actually exist for the current release, with real version, date, size, architecture, and checksum when available.
 - OS detection may be a convenience, but explicit Windows/macOS/Linux choices must always be visible.
-- Real application screenshots only. Never fabricate UI.
+- Real application screenshots only. Never fabricate UI. Screenshots in `public/screenshots/` come from the actual app and may show disconnected or empty states honestly.
 - Local-first claims must stay accurate: the app runs locally and connects directly over SSH, but data is exchanged with the remote server, so do not claim no data ever leaves the machine.
-- "Free to use" refers to ServerPilot only. Do not imply VPS hosting is free.
+- "Free to use" refers to ServerDesk only. Do not imply VPS hosting is free.
 
 ## Design constraints
 
-- Strict monochrome palette: `#FFFFFF`, `#F5F5F5`, `#737373`, `#E5E5E5`, `#111111`. No accent colors.
-- Type: Inter or Geist Sans for text; Geist Mono or JetBrains Mono for technical labels. Content max width ~1200px.
-- Thin borders and whitespace over shadows. Corner radius 10–16px, used consistently.
-- Motion: short CSS transitions (150–500ms), IntersectionObserver for reveals, `prefers-reduced-motion` support. No parallax, constant motion, heavy 3D, or WebGL.
+- Strict monochrome palette: `#FFFFFF`, `#F5F5F5`, `#737373`, `#E5E5E5`, `#111111`. No accent colors in site chrome. The color logo mark is the only brand exception.
+- Type: Geist Sans for text; Geist Mono for technical labels. Content max width ~1200px.
+- Thin borders and whitespace over shadows. Corner radius 10px for controls, 14px for panels.
+- Motion: short CSS transitions (150-500ms), IntersectionObserver for reveals, `prefers-reduced-motion` support. No parallax, constant motion, heavy 3D, or WebGL except the hero Threads background, which must respect reduced motion.
 - Pages must remain readable without client-side JavaScript; keep main content server-rendered.
 - Avoid fixed-width screenshot containers that cause horizontal overflow on mobile.
 
-## Verification
+## SEO and brand assets
 
-- No commands exist yet. After scaffolding, add the real ones here (install, dev, build, typecheck, lint, test).
-- Astro's type/content check is `astro check`; run it once the project exists.
+- Production URL: `https://serverdesk.srosthai.me`. `SITE_URL` can override it at build time.
+- Shared image: `public/og-image.png` (1200x630). Logo mark: `public/logo-mark.png`. Apple touch icon: `public/apple-touch-icon.png`.
+- Every page needs a unique title, description, and canonical URL. Sitemap is generated by `@astrojs/sitemap`; `public/robots.txt` points at it.
+- Structured data must contain only verified facts. Do not add ratings, reviews, or invented offer claims.
 
 ## Out of scope
 
