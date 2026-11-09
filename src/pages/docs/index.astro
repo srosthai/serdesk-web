@@ -1,7 +1,13 @@
 ---
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Container from "../../components/layout/Container.astro";
 import PageHeader from "../../components/ui/PageHeader.astro";
+import { groupDocs, sortDocs } from "../../lib/docs";
+import { site } from "../../data/site";
+
+const docs = sortDocs(await getCollection("docs"));
+const groups = groupDocs(docs);
 ---
 
 <BaseLayout
@@ -11,11 +17,83 @@ import PageHeader from "../../components/ui/PageHeader.astro";
   <Container>
     <PageHeader
       title="Documentation."
-      description="Practical guides for installing ServerDesk and connecting your first server."
-    />
-    <div class="py-16 md:py-24">
-      <p class="lede">The documentation index is being assembled.</p>
-      <a href="/" class="button button-secondary mt-8">Back to home</a>
-    </div>
+      description="Practical guides for installing ServerDesk and connecting your first server. The desktop app is the only thing you install."
+    >
+      <div
+        class="mt-8 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[0.6875rem] leading-5 text-graphite"
+      >
+        <span>{docs.length} {docs.length === 1 ? "guide" : "guides"}</span>
+        <a
+          href={site.contact}
+          target="_blank"
+          rel="noreferrer"
+          class="border-l border-rule pl-5 text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+        >
+          Ask a question
+        </a>
+      </div>
+    </PageHeader>
   </Container>
+
+  <section class="section-space">
+    <Container>
+      <div class="grid gap-12 lg:grid-cols-[minmax(0,0.7fr)_minmax(0,1.3fr)] lg:gap-20">
+        <div>
+          <h2 class="section-title">Start here.</h2>
+          <p class="lede mt-5">
+            Read the overview first, then move through installation, SSH keys, and the first
+            connection.
+          </p>
+          <p class="mt-8 max-w-[40ch] text-[0.9375rem] leading-7 text-graphite">
+            The guides describe the current build. If a step does not match what you see, open an
+            issue with the application version and the server distribution.
+          </p>
+          <a
+            href={site.contact}
+            target="_blank"
+            rel="noreferrer"
+            class="mt-6 inline-block text-[0.875rem] font-medium text-ink underline decoration-rule underline-offset-4 hover:decoration-ink"
+          >
+            Open the issue tracker
+          </a>
+        </div>
+
+        <div>
+          {
+            groups.length === 0 ? (
+              <div class="border-y border-rule bg-mist px-6 py-8">
+                <h2 class="text-[1.25rem] font-semibold tracking-[-0.03em]">No guides yet.</h2>
+                <p class="mt-2 text-[0.9375rem] leading-7 text-graphite">
+                  The first guides are being written. Check the repository for the current state.
+                </p>
+              </div>
+            ) : (
+              groups.map((group) => (
+                <section class="mt-10 first:mt-0">
+                  <h2 class="font-mono text-[0.6875rem] leading-5 text-graphite">{group.section}</h2>
+                  <ul class="mt-3 border-t border-rule">
+                    {group.entries.map((entry) => (
+                      <li class="border-b border-rule">
+                        <a
+                          href={`/docs/${entry.id}`}
+                          class="grid gap-2 py-5 no-underline transition-colors hover:bg-mist sm:grid-cols-[0.8fr_1.2fr] sm:gap-8 sm:px-3"
+                        >
+                          <span class="text-[1rem] font-medium tracking-[-0.015em] text-ink">
+                            {entry.data.title}
+                          </span>
+                          <span class="text-[0.9375rem] leading-7 text-graphite">
+                            {entry.data.description}
+                          </span>
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              ))
+            )
+          }
+        </div>
+      </div>
+    </Container>
+  </section>
 </BaseLayout>
