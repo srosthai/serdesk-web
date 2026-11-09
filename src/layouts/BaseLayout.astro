@@ -1,6 +1,7 @@
 ---
 import Navbar from "../components/layout/Navbar.astro";
 import Footer from "../components/layout/Footer.astro";
+import ScrollTop from "../components/layout/ScrollTop.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -64,6 +65,26 @@ const imageUrl = new URL(image, Astro.site);
     <meta name="twitter:image" content={imageUrl} />
     <meta name="twitter:image:alt" content="ServerDesk, a local-first desktop workspace for VPS servers" />
 
+    <script is:inline>
+      (() => {
+        const stored = localStorage.getItem("theme");
+        const dark = stored
+          ? stored === "dark"
+          : window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.classList.toggle("dark", dark);
+        document.documentElement.style.colorScheme = dark ? "dark" : "light";
+        const meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute("content", dark ? "#0b0b0b" : "#ffffff");
+      })();
+    </script>
+    <noscript>
+      <style>
+        [data-theme-toggle],
+        [data-scroll-top] {
+          display: none !important;
+        }
+      </style>
+    </noscript>
   </head>
   <body>
     <a class="skip-link" href="#main-content">Skip to content</a>
@@ -72,7 +93,9 @@ const imageUrl = new URL(image, Astro.site);
     <main id="main-content">
       <slot />
     </main>
+    <div data-scroll-sentinel aria-hidden="true" class="h-px w-full"></div>
     <Footer />
+    <ScrollTop />
 
     <script is:inline>
       (() => {
@@ -98,6 +121,58 @@ const imageUrl = new URL(image, Astro.site);
         );
 
         items.forEach((item) => observer.observe(item));
+      })();
+    </script>
+
+    <script is:inline>
+      (() => {
+        const root = document.documentElement;
+        const toggles = Array.from(document.querySelectorAll("[data-theme-toggle]"));
+        const meta = document.querySelector('meta[name="theme-color"]');
+
+        const applyTheme = (dark) => {
+          root.classList.toggle("dark", dark);
+          root.style.colorScheme = dark ? "dark" : "light";
+          if (meta) meta.setAttribute("content", dark ? "#0b0b0b" : "#ffffff");
+          toggles.forEach((toggle) => {
+            toggle.setAttribute("aria-pressed", String(dark));
+            toggle.setAttribute("aria-label", dark ? "Switch to light theme" : "Switch to dark theme");
+          });
+        };
+
+        applyTheme(root.classList.contains("dark"));
+
+        toggles.forEach((toggle) => {
+          toggle.addEventListener("click", () => {
+            const dark = !root.classList.contains("dark");
+            applyTheme(dark);
+            localStorage.setItem("theme", dark ? "dark" : "light");
+          });
+        });
+
+        const media = window.matchMedia("(prefers-color-scheme: dark)");
+        media.addEventListener?.("change", (event) => {
+          if (!localStorage.getItem("theme")) applyTheme(event.matches);
+        });
+
+        const top = document.querySelector("[data-scroll-top]");
+        const sentinel = document.querySelector("[data-scroll-sentinel]");
+
+        if (top) {
+          top.addEventListener("click", () => {
+            const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+            window.scrollTo({ top: 0, behavior: reduce ? "auto" : "smooth" });
+          });
+
+          if (sentinel && "IntersectionObserver" in window) {
+            new IntersectionObserver(
+              ([entry]) => top.classList.toggle("is-visible", entry.isIntersecting),
+              { threshold: 0 },
+            ).observe(sentinel);
+          } else {
+            top.classList.add("is-visible");
+          }
+        }
       })();
     </script>
   </body>

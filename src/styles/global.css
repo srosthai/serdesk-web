@@ -2,6 +2,8 @@
 @import "@fontsource-variable/geist";
 @import "@fontsource-variable/geist-mono";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @theme {
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", monospace;
@@ -10,11 +12,29 @@
   --color-mist: #f5f5f5;
   --color-graphite: #6b6b6b;
   --color-rule: #e5e5e5;
+  --color-rule-strong: #cfcfcf;
+  --color-link-rule: #c7c7c7;
   --color-ink: #111111;
   --color-ink-raised: #1a1a1a;
+  --color-band: #111111;
+  --color-band-foreground: #ffffff;
 
   --radius-control: 10px;
   --radius-panel: 14px;
+}
+
+html.dark {
+  color-scheme: dark;
+  --color-paper: #0b0b0b;
+  --color-mist: #151515;
+  --color-graphite: #a3a3a3;
+  --color-rule: #2a2a2a;
+  --color-rule-strong: #3a3a3a;
+  --color-link-rule: #4a4a4a;
+  --color-ink: #f2f2f2;
+  --color-ink-raised: #ffffff;
+  --color-band: #050505;
+  --color-band-foreground: #f5f5f5;
 }
 
 @layer base {
@@ -26,6 +46,7 @@
 
   html {
     background: var(--color-paper);
+    color-scheme: light;
     color: var(--color-ink);
     font-family: var(--font-sans);
     font-size: 16px;
@@ -44,6 +65,7 @@
     font-size: clamp(1rem, 0.96rem + 0.14vw, 1.125rem);
     line-height: 1.65;
     overflow-x: clip;
+    transition: background-color 250ms ease, color 250ms ease;
   }
 
   h1,
@@ -187,13 +209,13 @@
   }
 
   .button-secondary:hover {
-    border-color: #cfcfcf;
+    border-color: var(--color-rule-strong);
     background: var(--color-mist);
   }
 
   .text-link {
     text-decoration-line: underline;
-    text-decoration-color: #c7c7c7;
+    text-decoration-color: var(--color-link-rule);
     text-underline-offset: 0.24em;
     transition: text-decoration-color 150ms ease;
   }
@@ -371,7 +393,7 @@
   .docs-prose a {
     color: var(--color-ink);
     text-decoration: underline;
-    text-decoration-color: #c7c7c7;
+    text-decoration-color: var(--color-link-rule);
     text-underline-offset: 0.24em;
   }
 
@@ -494,4 +516,62 @@
     transform: none !important;
     transition: none !important;
   }
+}
+
+/* Theme toggle icon */
+.theme-icon {
+  transition:
+    opacity 200ms ease,
+    transform 220ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.theme-icon-moon {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.55);
+}
+
+html.dark .theme-icon-sun {
+  opacity: 0;
+  transform: rotate(90deg) scale(0.55);
+}
+
+html.dark .theme-icon-moon {
+  opacity: 1;
+  transform: rotate(0deg) scale(1);
+}
+
+/* Mobile hero fallback and desktop shader inversion */
+.hero-dot-field {
+  background-image: radial-gradient(circle, rgba(17, 17, 17, 0.28) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
+
+html.dark .hero-dot-field {
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.22) 1px, transparent 1px);
+}
+
+html.dark .hero-threads canvas {
+  filter: invert(1);
+}
+
+/* Bottom-of-page scroll control */
+.scroll-top {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+html.dark .scroll-top {
+  box-shadow: 0 10px 34px rgba(0, 0, 0, 0.45);
 }
