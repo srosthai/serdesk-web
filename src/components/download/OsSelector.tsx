@@ -60,7 +60,8 @@ export default function OsSelector({ release }: Props) {
           return (
             <article
               key={platform.id}
-              className={`flex flex-col rounded-[14px] border bg-paper p-6 ${
+              id={platform.id}
+              className={`flex scroll-mt-24 flex-col rounded-[14px] border bg-paper p-6 ${
                 isDetected ? "border-ink" : "border-rule"
               }`}
             >
