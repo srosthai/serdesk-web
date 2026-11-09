@@ -47,9 +47,9 @@ npm run preview
 
 The site is a static build served by Cloudflare Pages:
 
-- Pages project: `serverdesk-web`
+- Pages project: `serdesk-web`
 - Production branch: `main`
-- Production domain: `https://serverdesk.srosthai.me`
+- Production domain: `https://serdesk.srosthai.me`
 - Build output: `dist/`
 
 GitHub Actions runs `npm ci`, `npm run check`, and `npm run build` for every pull request and every push to `dev` or `main`.
@@ -59,7 +59,7 @@ Deployment runs on every push to `main`. Add these repository secrets before ena
 - `CLOUDFLARE_API_TOKEN`
 - `CLOUDFLARE_ACCOUNT_ID`
 
-If the secrets are missing, the deployment workflow builds the site and skips the upload with a warning. Create the Pages project once with `npx wrangler@4 pages project create serverdesk-web` or through the Cloudflare dashboard.
+If the secrets are missing, the deployment workflow builds the site and skips the upload with a warning. Create the Pages project once with `npx wrangler@4 pages project create serdesk-web` or through the Cloudflare dashboard.
 
 ## Project status
 
@@ -67,4 +67,4 @@ The implementation is tracked in the repository issues and milestones. The sourc
 
 The final review is recorded in [`MVP_ACCEPTANCE.md`](MVP_ACCEPTANCE.md). v0.1.0 is available as a GitHub pre-release; the Download page links to the published assets and lists their SHA-256 checksums.
 
-The production domain is `https://serverdesk.srosthai.me`. Override it with `SITE_URL` at build time when needed.
+The production domain is `https://serdesk.srosthai.me`. Override it with `SITE_URL` at build time when needed.

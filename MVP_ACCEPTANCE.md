@@ -49,7 +49,7 @@ Verified in Chrome headless against the local production preview at 1440px, 1024
 - Keyboard checks: skip link, mobile menu Escape and focus return, gallery tabs and lightbox, theme toggle, and scroll control.
 - No console errors or failed network requests on any audited route.
 - GitHub Actions CI passes on pull requests and on pushes to `dev` and `main`.
-- Deployment workflow is configured for Cloudflare Pages project `serverdesk-web`; it builds successfully and skips upload when credentials are absent.
+- Deployment workflow is configured for Cloudflare Pages project `serdesk-web`; it builds successfully and skips upload when credentials are absent.
 
 ## Accepted exceptions
 
@@ -61,7 +61,7 @@ Verified in Chrome headless against the local production preview at 1440px, 1024
 
 ## Release follow-up
 
-1. Add the Cloudflare secrets, create the Pages project, and confirm `https://serverdesk.srosthai.me`.
+1. Add the Cloudflare secrets, create the Pages project, and confirm `https://serdesk.srosthai.me`.
 2. Promote the v0.1.0 GitHub pre-release to a stable release when it is ready.
 3. Add a license file or update the About page if the source licensing changes.
 4. Refresh the product screenshots when connected-state captures are available.
