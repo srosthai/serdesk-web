@@ -1,0 +1,74 @@
+{
+  "version": "0.1.1",
+  "releaseDate": "2026-11-18",
+  "publishedAt": "2026-11-18",
+  "status": "published",
+  "notesUrl": "https://github.com/srosthai/ServerDesk/releases/tag/v0.1.1",
+  "docsUrl": "/docs/getting-started/installation",
+  "checksumsUrl": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/SHA256SUMS",
+  "assets": [
+    {
+      "id": "windows-setup",
+      "platform": "windows",
+      "architecture": "x64",
+      "format": "EXE",
+      "fileName": "ServerDesk_0.1.1_x64-setup.exe",
+      "url": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/ServerDesk_0.1.1_x64-setup.exe",
+      "sizeBytes": 6601624,
+      "sha256": "b41efe8caf8216729aabc269f01737efedf11409924289d14c72589738d18641",
+      "recommended": true
+    },
+    {
+      "id": "macos-dmg",
+      "platform": "macos",
+      "architecture": "Universal",
+      "format": "DMG",
+      "fileName": "ServerDesk_0.1.1_universal.dmg",
+      "url": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/ServerDesk_0.1.1_universal.dmg",
+      "sizeBytes": 18742064,
+      "sha256": "c6ea31c1d3487a41525a1e6a8fbf94bb2fa03704d995cf41c26223fb05993fb8",
+      "recommended": true
+    },
+    {
+      "id": "macos-zip",
+      "platform": "macos",
+      "architecture": "Universal",
+      "format": "App ZIP",
+      "fileName": "ServerDesk.app.zip",
+      "url": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/ServerDesk.app.zip",
+      "sizeBytes": 17586222,
+      "sha256": "4b1763061f8dc466d6d6ce3840ff9bc6943765fc490ecaec53cebf8e5634fc8d"
+    },
+    {
+      "id": "linux-appimage",
+      "platform": "linux",
+      "architecture": "amd64",
+      "format": "AppImage",
+      "fileName": "ServerDesk_0.1.1_amd64.AppImage",
+      "url": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/ServerDesk_0.1.1_amd64.AppImage",
+      "sizeBytes": 87992824,
+      "sha256": "ea4bd90707184c5273dd36eba778d907e4e75da2548f45928d5d6c624f196178",
+      "recommended": true
+    },
+    {
+      "id": "linux-deb",
+      "platform": "linux",
+      "architecture": "amd64",
+      "format": "DEB",
+      "fileName": "ServerDesk_0.1.1_amd64.deb",
+      "url": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/ServerDesk_0.1.1_amd64.deb",
+      "sizeBytes": 10151166,
+      "sha256": "817761b056b2cf4cbbe3c29b71b0094f599260b112b5caab4eaceb4bd84d69cf"
+    },
+    {
+      "id": "linux-rpm",
+      "platform": "linux",
+      "architecture": "x86_64",
+      "format": "RPM",
+      "fileName": "ServerDesk-0.1.1-1.x86_64.rpm",
+      "url": "https://github.com/srosthai/ServerDesk/releases/download/v0.1.1/ServerDesk-0.1.1-1.x86_64.rpm",
+      "sizeBytes": 10157897,
+      "sha256": "42f7796cf3d8c6f1b6b8085e9ec926c9487c9553d30ade7c58b6e62739e95430"
+    }
+  ]
+}

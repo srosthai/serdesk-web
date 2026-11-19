@@ -81,6 +81,26 @@ export const features: Feature[] = [
     featured: false,
   },
   {
+    id: "database-manager",
+    name: "Database Manager",
+    description:
+      "Work with MySQL and PostgreSQL over the existing SSH connection, from connection profiles to table edits and SQL.",
+    detail:
+      "Connect through a loopback SSH tunnel, browse databases and schemas, edit structure and rows, run SQL, move CSV or SQL dumps, and review health without exposing a database port.",
+    status: "available",
+    featured: true,
+  },
+  {
+    id: "auto-updates",
+    name: "Signed automatic updates",
+    description:
+      "ServerDesk detects new releases and verifies signed updates before installing them from inside the app.",
+    detail:
+      "Checks run on launch and from Settings. AppImage, Windows NSIS, and signed macOS builds update in place. DEB and RPM installs link to the release download instead of replacing package-manager files.",
+    status: "available",
+    featured: true,
+  },
+  {
     id: "logs-history",
     name: "Logs and history",
     description:
