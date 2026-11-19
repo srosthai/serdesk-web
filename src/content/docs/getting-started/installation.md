@@ -10,8 +10,8 @@ order: 2
 ServerDesk is a desktop application. Install it on the computer you use to manage servers, not
 on the VPS.
 
-Download the current pre-release from the [Download page](/download). The page lists the exact
-package files, sizes, architectures, and SHA-256 checksums for the release.
+Download the current release from the [Download page](/download). The page lists the exact
+package files, sizes, architectures, SHA-256 checksums, and command-line installers.
 
 ## Windows
 
@@ -49,6 +49,36 @@ sudo dnf install ./<downloaded-package>.rpm
 chmod +x <downloaded-package>.AppImage
 ./<downloaded-package>.AppImage
 ```
+
+## Command-line install
+
+Linux and macOS:
+
+```bash
+curl -fsSLO https://github.com/srosthai/ServerDesk/releases/latest/download/install.sh
+less install.sh
+bash install.sh --version v0.1.1
+```
+
+Windows PowerShell:
+
+```powershell
+Invoke-WebRequest -Uri https://github.com/srosthai/ServerDesk/releases/latest/download/install.ps1 -OutFile install.ps1
+Get-Content .\install.ps1
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Version v0.1.1
+```
+
+The scripts download the matching release asset and verify it against `SHA256SUMS` before
+installing.
+
+## Updates
+
+ServerDesk checks for a signed update when it starts and from Settings. AppImage, Windows NSIS,
+and signed macOS builds update in place. DEB and RPM installs link to the release download
+instead of replacing package-manager files.
+
+Windows and macOS builds are currently unsigned. SmartScreen or Gatekeeper may ask for
+confirmation. v0.1.0 installations must upgrade manually once because they predate the updater.
 
 ## Verify the download
 
